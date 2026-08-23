@@ -31,9 +31,9 @@ const telemetry = [
 ]
 
 export function HeroSection() {
-  // Mientras no exista /public/images/hero-huerta.png (foto real a agregar
-  // por el equipo), mostramos un placeholder de marca prolijo en vez de un
-  // ícono de imagen rota. Apenas el archivo esté, esto deja de dispararse.
+  // Fallback de marca por si /public/images/hero-huerta.jpg no carga
+  // (por ejemplo, si se borra el archivo sin querer). Con la foto real
+  // ya en su lugar, esto normalmente no se dispara.
   const [photoMissing, setPhotoMissing] = React.useState(false)
 
   return (
@@ -133,16 +133,16 @@ export function HeroSection() {
                 <p className="max-w-[220px] text-xs leading-relaxed text-muted-foreground">
                   Falta la foto real de la huerta en{" "}
                   <code className="rounded bg-background/70 px-1 py-0.5 font-mono">
-                    /public/images/hero-huerta.png
+                    /public/images/hero-huerta.jpg
                   </code>
                 </p>
               </div>
             ) : (
               <Image
-                src="/images/hero-huerta.png"
-                alt="Huerta con cultivos en hilera y el nodo SIMONA monitoreando humedad de suelo"
-                width={1200}
-                height={900}
+                src="/images/hero-huerta.jpg"
+                alt="Voluntarios trabajando en canteros comunitarios de una huerta, con invernadero de fondo"
+                width={738}
+                height={414}
                 priority
                 className="aspect-[4/3] h-full w-full object-cover"
                 onError={() => setPhotoMissing(true)}

@@ -1,3 +1,4 @@
+import Image from "next/image"
 import {
   Cpu,
   Droplet,
@@ -81,6 +82,22 @@ export function HardwareSection() {
             <Radio className="size-3.5" aria-hidden="true" />
             Próximamente: SIMONA Pro — escalabilidad LoRa
           </Badge>
+        </div>
+
+        <div className="relative overflow-hidden rounded-2xl border border-border">
+          <Image
+            src="/images/vivero-plantines.jpg"
+            alt="Filas de plantines en un vivero bajo malla media sombra"
+            width={678}
+            height={452}
+            className="aspect-[21/9] w-full object-cover"
+          />
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-foreground/70 to-transparent p-4 sm:p-5">
+            <p className="max-w-md text-sm leading-relaxed text-primary-foreground">
+              Pensado también para viveros: un kit por túnel o sector,
+              monitoreando humedad y luz fila por fila.
+            </p>
+          </div>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

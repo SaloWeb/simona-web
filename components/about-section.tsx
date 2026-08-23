@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { Compass, Mountain, Sprout, Target } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
@@ -55,6 +56,13 @@ export function AboutSection() {
 
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <Card className="border-earth/25 bg-earth/[0.06]">
+            <Image
+              src="/images/historia-huerta.jpg"
+              alt="Persona trabajando de cerca en un cultivo de una huerta"
+              width={678}
+              height={452}
+              className="aspect-[16/10] w-full object-cover"
+            />
             <CardHeader>
               <Badge
                 variant="outline"

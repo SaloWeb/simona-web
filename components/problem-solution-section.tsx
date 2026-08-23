@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { AlertTriangle, Sparkles } from "lucide-react"
 
 import {
@@ -24,6 +25,13 @@ export function ProblemSolutionSection() {
 
         <div className="grid gap-6 lg:grid-cols-2">
           <Card className="border-destructive/25 bg-destructive/[0.04]">
+            <Image
+              src="/images/problema-manual.jpg"
+              alt="Trabajador realizando tareas manuales en un invernadero, sin sensores ni automatización"
+              width={547}
+              height={365}
+              className="aspect-[16/10] w-full object-cover"
+            />
             <CardHeader>
               <span className="flex size-10 items-center justify-center rounded-lg bg-destructive/10 text-destructive">
                 <AlertTriangle className="size-5" aria-hidden="true" />
