@@ -69,20 +69,11 @@ export function HardwareSection() {
   return (
     <section id="solucion" className="border-b border-border py-16 lg:py-24">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <SectionHeading
-            eyebrow="Arquitectura de Hardware"
-            title="Kit SIMONA: todo lo que el cultivo necesita medir."
-            description="Una sola caja, cinco variables agronómicas y un relé que actúa. Sin servidores, sin suscripciones y sin dependencia de la señal del campo."
-          />
-          <Badge
-            variant="outline"
-            className="w-fit shrink-0 gap-1.5 border-accent/30 bg-accent/10 py-1.5 text-accent"
-          >
-            <Radio className="size-3.5" aria-hidden="true" />
-            Próximamente: SIMONA Pro — escalabilidad LoRa
-          </Badge>
-        </div>
+        <SectionHeading
+          eyebrow="Arquitectura de Hardware"
+          title="Kit SIMONA: todo lo que el cultivo necesita medir."
+          description="Una sola caja, cuatro sensores agronómicos y un relé que actúa. Sin servidores, sin suscripciones y sin dependencia de la señal del campo."
+        />
 
         <div className="relative overflow-hidden rounded-2xl border border-border">
           <Image
@@ -147,6 +138,35 @@ export function HardwareSection() {
               </Card>
             ),
           )}
+
+          {/*
+            El badge "Próximamente: SIMONA Pro" vivía suelto arriba a la
+            derecha del heading, compitiendo visualmente con el título.
+            Ahora cierra el grid como una card más (con estilo punteado
+            para diferenciarla del hardware actual), donde tiene contexto:
+            aparece justo después de todo el kit que sí existe hoy.
+          */}
+          <Card className="h-full border-dashed border-accent/40 bg-accent/[0.04] shadow-none">
+            <CardHeader>
+              <span className="icon-chip flex size-10 items-center justify-center bg-accent/15 text-accent">
+                <Radio className="size-5" aria-hidden="true" />
+              </span>
+              <Badge
+                variant="outline"
+                className="w-fit gap-1.5 border-accent/30 bg-card text-accent"
+              >
+                Próximamente
+              </Badge>
+              <CardTitle className="text-balance">SIMONA Pro</CardTitle>
+              <CardDescription className="font-mono text-[11px] uppercase tracking-wide text-accent">
+                Escalabilidad LoRa
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-sm leading-relaxed text-muted-foreground">
+              Una versión pensada para predios más grandes, con alcance
+              extendido entre kits sin depender de WiFi punto a punto.
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>

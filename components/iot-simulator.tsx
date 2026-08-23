@@ -3,8 +3,12 @@
 import * as React from "react"
 import { motion } from "motion/react"
 import {
+  ArrowRight,
   Droplet,
   FlaskConical,
+  Minus,
+  MoveDown,
+  Plus,
   PowerOff,
   RotateCcw,
   Sun,
@@ -154,7 +158,7 @@ export function IotSimulator() {
           <SectionHeading
             eyebrow="Demo en Vivo"
             title="Simulador interactivo del nodo IoT"
-            description="Movés los sensores, SIMONA decide. Cuando la humedad cae por debajo del mínimo del perfil, el relé acciona la bomba y no corta hasta alcanzar el máximo. El pH se representa como slider por simplicidad, pero en la práctica se mide por muestra manual."
+            description="Movés los sensores, SIMONA decide. Cuando la humedad cae por debajo del mínimo del perfil, el relé acciona la bomba y no corta hasta alcanzar el máximo. El pH se ajusta con +/- en vez de arrastre, porque en la práctica se mide por muestra manual, no de forma continua."
           />
           <Button variant="outline" onClick={reset} className="w-fit shrink-0">
             <RotateCcw data-icon="inline-start" />
@@ -162,7 +166,7 @@ export function IotSimulator() {
           </Button>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-[1.3fr_1fr]">
+        <div className="grid gap-6 lg:grid-cols-[1.3fr_auto_1fr]">
           <Card>
             <CardHeader>
               <div className="flex flex-wrap items-center justify-between gap-3">
@@ -177,6 +181,11 @@ export function IotSimulator() {
                   ESP32 · AP 192.168.4.1
                 </Badge>
               </div>
+              <p className="flex items-center gap-1.5 text-xs font-medium text-accent">
+                <MoveDown className="size-3.5 shrink-0" aria-hidden="true" />
+                Arrastrá "Humedad de suelo" por debajo de{" "}
+                {PROFILE.moistureMin}% y mirá reaccionar la bomba →
+              </p>
             </CardHeader>
             <CardContent className="flex flex-col gap-7">
               {readings.map((r) => {
@@ -201,6 +210,15 @@ export function IotSimulator() {
                             Muestra manual
                           </Badge>
                         ) : null}
+                        {r.key === "moisture" ? (
+                          <Badge
+                            variant="outline"
+                            className="h-4 gap-1 border-accent/30 bg-accent/10 px-1.5 py-0 text-[9px] font-normal text-accent"
+                          >
+                            <ArrowRight className="size-2.5" aria-hidden="true" />
+                            Acciona la bomba
+                          </Badge>
+                        ) : null}
                       </label>
                       <span
                         className={cn(
@@ -211,17 +229,64 @@ export function IotSimulator() {
                         {r.format(r.value)}
                       </span>
                     </div>
-                    <Slider
-                      id={`sim-${r.key}`}
-                      value={r.value}
-                      min={r.min}
-                      max={r.max}
-                      step={r.step}
-                      aria-label={r.label}
-                      onValueChange={(v) =>
-                        setters[r.key](Array.isArray(v) ? v[0] : (v as number))
-                      }
-                    />
+                    {r.key === "ph" ? (
+                      // El pH no es continuo como los demás sensores: en la
+                      // práctica se mide por muestra manual (badge de
+                      // arriba). Un stepper +/- refuerza esa diferencia en
+                      // vez de solo aclararla en texto, a diferencia del
+                      // slider de arrastre que usan el resto de las lecturas.
+                      <div className="flex items-center gap-3">
+                        <Button
+                          variant="outline"
+                          size="icon-sm"
+                          disabled={r.value <= r.min}
+                          onClick={() =>
+                            setPh((v) =>
+                              Math.max(r.min, Math.round((v - r.step) * 10) / 10),
+                            )
+                          }
+                          aria-label={`Bajar ${r.label}`}
+                        >
+                          <Minus className="size-3.5" aria-hidden="true" />
+                        </Button>
+                        <div className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-muted">
+                          <div
+                            className={cn(
+                              "h-full rounded-full transition-[width] duration-200",
+                              outOfRange ? "bg-destructive" : "bg-primary",
+                            )}
+                            style={{
+                              width: `${((r.value - r.min) / (r.max - r.min)) * 100}%`,
+                            }}
+                          />
+                        </div>
+                        <Button
+                          variant="outline"
+                          size="icon-sm"
+                          disabled={r.value >= r.max}
+                          onClick={() =>
+                            setPh((v) =>
+                              Math.min(r.max, Math.round((v + r.step) * 10) / 10),
+                            )
+                          }
+                          aria-label={`Subir ${r.label}`}
+                        >
+                          <Plus className="size-3.5" aria-hidden="true" />
+                        </Button>
+                      </div>
+                    ) : (
+                      <Slider
+                        id={`sim-${r.key}`}
+                        value={r.value}
+                        min={r.min}
+                        max={r.max}
+                        step={r.step}
+                        aria-label={r.label}
+                        onValueChange={(v) =>
+                          setters[r.key](Array.isArray(v) ? v[0] : (v as number))
+                        }
+                      />
+                    )}
                     <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-wide text-muted-foreground">
                       <span>
                         {r.min}
@@ -244,6 +309,34 @@ export function IotSimulator() {
               })}
             </CardContent>
           </Card>
+
+          {/*
+            Conector visual entre "Humedad de suelo" y el relé: en un
+            grid de dos columnas quedaban un poco separados a pesar de
+            que uno causa el otro. Esta columna angosta (solo visible en
+            desktop) hace explícito ese vínculo con una flecha que se
+            enciende cuando la bomba está activa.
+          */}
+          <div className="hidden flex-col items-center justify-center gap-1.5 lg:flex">
+            <span className="h-10 w-px bg-border" aria-hidden="true" />
+            <motion.span
+              animate={pumpOn ? { x: [0, 4, 0] } : { x: 0 }}
+              transition={
+                pumpOn
+                  ? { duration: 1, repeat: Infinity, ease: "easeInOut" }
+                  : { duration: 0.2 }
+              }
+              className={cn(
+                "flex size-7 shrink-0 items-center justify-center rounded-full border",
+                pumpOn
+                  ? "border-accent/40 bg-accent/15 text-accent"
+                  : "border-border bg-muted text-muted-foreground",
+              )}
+            >
+              <ArrowRight className="size-3.5" aria-hidden="true" />
+            </motion.span>
+            <span className="h-10 w-px bg-border" aria-hidden="true" />
+          </div>
 
           <div className="flex flex-col gap-6">
             <Card

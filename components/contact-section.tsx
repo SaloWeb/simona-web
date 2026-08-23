@@ -1,8 +1,16 @@
 "use client"
 
 import * as React from "react"
-import { CheckCircle2, GraduationCap, Landmark, Send, Warehouse } from "lucide-react"
+import {
+  CheckCircle2,
+  FlaskConical,
+  GraduationCap,
+  Landmark,
+  Send,
+  Warehouse,
+} from "lucide-react"
 
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -87,10 +95,32 @@ export function ContactSection() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Formulario de contacto</CardTitle>
-              <CardDescription>
-                Respondemos con especificaciones técnicas y presupuesto de kit.
-              </CardDescription>
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div className="flex flex-col gap-1">
+                  <CardTitle>Formulario de contacto</CardTitle>
+                  <CardDescription>
+                    Respondemos con especificaciones técnicas y presupuesto de
+                    kit.
+                  </CardDescription>
+                </div>
+                {/*
+                  TODO(backend): este formulario todavía es 100%
+                  client-side — setSent(true) no persiste el envío en
+                  ningún lado (ver handleSubmit). Es el ítem más urgente
+                  del sitio si el objetivo es captar leads reales; hasta
+                  conectar un backend, este badge deja explícito en la UI
+                  que la consulta no viaja a ningún servidor todavía —
+                  mismo criterio del badge "MODO DEMO" que ya usa el
+                  dashboard del simulador de SIMONA.
+                */}
+                <Badge
+                  variant="outline"
+                  className="w-fit shrink-0 gap-1.5 border-accent/30 bg-accent/10 text-accent"
+                >
+                  <FlaskConical className="size-3.5" aria-hidden="true" />
+                  Formulario de prueba
+                </Badge>
+              </div>
             </CardHeader>
             <CardContent>
               {sent ? (
@@ -100,11 +130,14 @@ export function ContactSection() {
                   </span>
                   <div className="flex flex-col gap-1">
                     <h3 className="text-lg font-medium text-foreground">
-                      Consulta registrada
+                      Datos cargados (formulario de prueba)
                     </h3>
                     <p className="text-sm leading-relaxed text-muted-foreground">
-                      Gracias por tu interés en SIMONA. Vamos a contactarte con la
-                      especificación del kit y los tiempos de entrega.
+                      Esta versión del sitio todavía no envía la consulta a
+                      un servidor real. Guardá tus datos por otro medio
+                      mientras conectamos el formulario — no se pierde nada
+                      de tu lado, pero tampoco nos llega nada del nuestro
+                      todavía.
                     </p>
                   </div>
                   <Button variant="outline" onClick={() => setSent(false)}>

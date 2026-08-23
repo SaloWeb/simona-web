@@ -5,6 +5,7 @@ import Image from "next/image"
 import { Menu, X } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { cn } from "@/lib/utils"
 
 const navLinks = [
@@ -84,6 +85,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex shrink-0 items-center gap-2">
+          <ThemeToggle />
           <Button size="sm" className="hidden sm:inline-flex" render={<a href="#contacto" />} nativeButton={false}>
             Solicitar Kit SIMONA
           </Button>

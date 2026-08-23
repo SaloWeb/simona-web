@@ -157,8 +157,22 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es" className="bg-background">
+    <html lang="es" className="bg-background" suppressHydrationWarning>
       <body className="antialiased font-sans">
+        {/*
+          Aplica el tema guardado (o el del sistema) ANTES de la primera
+          pintura, corriendo de forma síncrona apenas el parser llega acá
+          — evita el flash de tema incorrecto que tendríamos si esto se
+          hiciera recién en un useEffect de React ya montado. Es la
+          contraparte del toggle de tema en SiteHeader (mismo criterio
+          que ya usa el dashboard del simulador ESP32 en Python).
+        */}
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('simona-theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.classList.toggle('dark',d);}catch(e){}})();`,
+          }}
+        />
         <script
           type="application/ld+json"
           // eslint-disable-next-line react/no-danger

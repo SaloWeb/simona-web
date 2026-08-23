@@ -48,7 +48,7 @@ export function ProfilesSection() {
         <div className="grid items-center gap-12 lg:grid-cols-[auto_1fr] lg:gap-16">
           <div className="flex justify-center lg:justify-start">
             <div className="aspect-[9/19] w-full max-w-[280px] overflow-hidden rounded-3xl border-4 border-slate-800 bg-slate-100 shadow-xl">
-              <AppMockup />
+              <AppMockup variant="rangos" />
             </div>
           </div>
 

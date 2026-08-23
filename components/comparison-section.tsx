@@ -1,5 +1,7 @@
 import { Leaf } from "lucide-react"
 
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   Table,
   TableBody,
@@ -46,6 +48,17 @@ const criteria = [
     domestic: "Riego ciego por hora fijada",
     manual: "Decisiones con margen de error",
   },
+] as const
+
+type CompetitorKey = "simona" | "corporate" | "domestic" | "manual"
+
+// Misma data que alimenta la tabla, reagrupada por competidor — así la
+// vista de cards de mobile no duplica contenido, solo lo reordena.
+const competitors: { key: CompetitorKey; name: string; highlight?: boolean }[] = [
+  { key: "simona", name: "SIMONA AgTech", highlight: true },
+  { key: "corporate", name: "AgTech Corporativas" },
+  { key: "domestic", name: "Kits Domésticos (Tuya / Sonoff)" },
+  { key: "manual", name: "Monitoreo Manual / Reloj Analógico" },
 ]
 
 export function ComparisonSection() {
@@ -61,7 +74,66 @@ export function ComparisonSection() {
           description="Dónde se para SIMONA frente a las alternativas que hoy tiene el productor argentino."
         />
 
-        <div className="overflow-hidden rounded-xl border border-border bg-card">
+        {/*
+          Mobile (< md): cards apiladas, una por competidor, con SIMONA
+          destacada arriba — evita forzar el scroll horizontal de una
+          tabla de 5 columnas en la pantalla donde más tráfico entra.
+          Desktop (>= md): la tabla original, más apta para comparar
+          columna por columna de un vistazo.
+        */}
+        <div className="flex flex-col gap-4 md:hidden">
+          {competitors.map((competitor) => (
+            <Card
+              key={competitor.key}
+              className={
+                competitor.highlight
+                  ? "border-primary/30 bg-primary/[0.05] shadow-sm"
+                  : "shadow-sm"
+              }
+            >
+              <CardHeader className="flex-row items-center justify-between gap-3 space-y-0">
+                <CardTitle
+                  className={
+                    competitor.highlight
+                      ? "flex items-center gap-1.5 text-primary"
+                      : undefined
+                  }
+                >
+                  {competitor.highlight ? (
+                    <Leaf className="size-4 shrink-0" aria-hidden="true" />
+                  ) : null}
+                  {competitor.name}
+                </CardTitle>
+                {competitor.highlight ? (
+                  <Badge className="shrink-0">SIMONA</Badge>
+                ) : null}
+              </CardHeader>
+              <CardContent className="flex flex-col gap-3">
+                {criteria.map((row) => (
+                  <div
+                    key={row.label}
+                    className="flex flex-col gap-0.5 border-t border-border/70 pt-3 first:border-t-0 first:pt-0"
+                  >
+                    <dt className="font-mono text-[10px] uppercase tracking-wide text-muted-foreground">
+                      {row.label}
+                    </dt>
+                    <dd
+                      className={
+                        competitor.highlight
+                          ? "text-sm font-medium text-foreground"
+                          : "text-sm text-muted-foreground"
+                      }
+                    >
+                      {row[competitor.key]}
+                    </dd>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        <div className="hidden overflow-hidden rounded-xl border border-border bg-card md:block">
           <div className="overflow-x-auto">
             <Table className="min-w-[860px]">
               <TableHeader>
@@ -103,11 +175,11 @@ export function ComparisonSection() {
               </TableBody>
             </Table>
           </div>
+          <p className="border-t border-border px-4 py-3 font-mono text-xs text-muted-foreground">
+            Desplazá la tabla horizontalmente para ver todas las columnas en
+            pantallas chicas.
+          </p>
         </div>
-        <p className="font-mono text-xs text-muted-foreground">
-          Desplazá la tabla horizontalmente para ver todas las columnas en
-          pantallas chicas.
-        </p>
       </div>
     </section>
   )

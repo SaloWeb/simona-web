@@ -1,7 +1,16 @@
 "use client"
 
+import * as React from "react"
 import { QRCodeSVG } from "qrcode.react"
-import { BellRing, Download, Layers, Map, Smartphone } from "lucide-react"
+import {
+  BellRing,
+  CheckCircle2,
+  Download,
+  Layers,
+  Map,
+  Send,
+  Smartphone,
+} from "lucide-react"
 
 import {
   Accordion,
@@ -18,6 +27,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Field, FieldLabel } from "@/components/ui/field"
+import { Input } from "@/components/ui/input"
 import { SectionHeading } from "@/components/section-heading"
 
 const APK_URL = "https://simona-agtech.example/simona-app-v4.apk"
@@ -85,6 +96,13 @@ const steps = [
 ]
 
 export function DownloadSection() {
+  const [notifySent, setNotifySent] = React.useState(false)
+
+  function handleNotifySubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setNotifySent(true)
+  }
+
   return (
     <section
       id="descargar"
@@ -168,6 +186,61 @@ export function DownloadSection() {
                     <Download data-icon="inline-start" />
                     Descargar APK (Próximamente)
                   </Button>
+
+                  {/*
+                    Con APK_AVAILABLE en false, esta sección quedaba sin
+                    ninguna vía de conversión: el tráfico que llega hasta
+                    acá se perdía. Este mini-formulario (solo email, mismo
+                    patrón mock que Contacto) captura el interés mientras
+                    no está la descarga real.
+                  */}
+                  <div className="mt-1 border-t border-border pt-4">
+                    {notifySent ? (
+                      <div className="flex items-start gap-3 rounded-lg border border-primary/30 bg-primary/[0.06] p-3.5">
+                        <CheckCircle2
+                          className="size-4.5 shrink-0 text-primary"
+                          aria-hidden="true"
+                        />
+                        <p className="text-sm leading-relaxed text-foreground">
+                          Listo, te avisamos por mail apenas esté disponible
+                          la primera versión.
+                        </p>
+                      </div>
+                    ) : (
+                      <form
+                        onSubmit={handleNotifySubmit}
+                        className="flex flex-col gap-2"
+                      >
+                        <Field>
+                          <FieldLabel
+                            htmlFor="notify-email"
+                            className="text-xs font-medium text-foreground"
+                          >
+                            Avisame cuando salga
+                          </FieldLabel>
+                          <div className="flex flex-col gap-2 sm:flex-row">
+                            <Input
+                              id="notify-email"
+                              name="notify-email"
+                              type="email"
+                              autoComplete="email"
+                              placeholder="nombre@ejemplo.com.ar"
+                              required
+                              className="sm:flex-1"
+                            />
+                            <Button
+                              type="submit"
+                              variant="outline"
+                              className="shrink-0"
+                            >
+                              <Send data-icon="inline-start" />
+                              Avisarme
+                            </Button>
+                          </div>
+                        </Field>
+                      </form>
+                    )}
+                  </div>
                 </div>
               )}
 

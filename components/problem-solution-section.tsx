@@ -23,8 +23,17 @@ export function ProblemSolutionSection() {
           className="mx-auto"
         />
 
+        {/*
+          Layout invertido a propósito respecto de la sección "Sobre
+          nosotros": ahí la foto grande queda en la columna izquierda.
+          Acá, en cambio, la card con foto ("El desafío") se reordena a la
+          derecha en desktop vía `lg:order-2`, mientras que en el DOM sigue
+          apareciendo primero (orden de lectura natural problema→solución
+          para lectores de pantalla). Rompe la repetición visual de dos
+          secciones seguidas con la misma composición imagen-izquierda.
+        */}
         <div className="grid gap-6 lg:grid-cols-2">
-          <Card className="border-earth/25 bg-earth/[0.04] shadow-sm">
+          <Card className="border-earth/25 bg-earth/[0.04] shadow-sm lg:order-2">
             <Image
               src="/images/problema-manual.jpg"
               alt="Trabajador realizando tareas manuales en un invernadero, sin sensores ni automatización"
@@ -46,7 +55,7 @@ export function ProblemSolutionSection() {
             </CardContent>
           </Card>
 
-          <Card className="border-primary/25 bg-primary/[0.04] shadow-sm">
+          <Card className="border-primary/25 bg-primary/[0.04] shadow-sm lg:order-1">
             <CardHeader>
               <span className="icon-chip flex size-10 items-center justify-center bg-primary/10 text-primary">
                 <Sparkles className="size-5" aria-hidden="true" />

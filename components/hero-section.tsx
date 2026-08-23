@@ -4,6 +4,7 @@ import Image from "next/image"
 import { motion, useReducedMotion } from "motion/react"
 import { CircleCheck } from "lucide-react"
 
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { AppMockup } from "@/components/app-mockup"
 
@@ -70,18 +71,20 @@ export function HeroSection() {
 
           <motion.ul
             {...fadeUp(0.32)}
-            className="flex flex-wrap items-center gap-x-5 gap-y-1.5 pt-2"
+            className="flex flex-wrap items-center gap-2 pt-1"
           >
             {valueProps.map((item) => (
-              <li
-                key={item}
-                className="flex items-center gap-1.5 text-xs text-muted-foreground"
-              >
-                <CircleCheck
-                  className="size-3.5 shrink-0 text-primary"
-                  aria-hidden="true"
-                />
-                {item}
+              <li key={item}>
+                <Badge
+                  variant="secondary"
+                  className="h-auto gap-1.5 rounded-full border border-accent/25 bg-accent/10 px-3 py-1.5 text-xs font-medium text-accent"
+                >
+                  <CircleCheck
+                    className="size-3.5 shrink-0"
+                    aria-hidden="true"
+                  />
+                  {item}
+                </Badge>
               </li>
             ))}
           </motion.ul>

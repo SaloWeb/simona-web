@@ -9,15 +9,24 @@ export function SectionHeading({
   title,
   description,
   align = "left",
+  tone = "default",
   className,
 }: {
   eyebrow: string
   title: string
   description?: string
   align?: "left" | "center"
+  /**
+   * "inverted": para secciones con fondo de color de marca (bg-primary),
+   * donde el eyebrow/título/descripción por defecto (pensados para fondo
+   * claro) perderían contraste. Usado por AiSection como sección de
+   * acento a mitad del recorrido de scroll.
+   */
+  tone?: "default" | "inverted"
   className?: string
 }) {
   const prefersReducedMotion = useReducedMotion()
+  const isInverted = tone === "inverted"
 
   return (
     <motion.div
@@ -31,15 +40,36 @@ export function SectionHeading({
         className,
       )}
     >
-      <span className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-primary">
-        <span aria-hidden="true" className="h-px w-6 bg-primary" />
+      <span
+        className={cn(
+          "flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em]",
+          isInverted ? "text-primary-foreground/90" : "text-primary",
+        )}
+      >
+        <span
+          aria-hidden="true"
+          className={cn(
+            "h-px w-6",
+            isInverted ? "bg-primary-foreground/60" : "bg-primary",
+          )}
+        />
         {eyebrow}
       </span>
-      <h2 className="font-display text-3xl font-semibold leading-tight tracking-tight text-balance sm:text-4xl">
+      <h2
+        className={cn(
+          "font-display text-3xl font-semibold leading-tight tracking-tight text-balance sm:text-4xl",
+          isInverted && "text-primary-foreground",
+        )}
+      >
         {title}
       </h2>
       {description ? (
-        <p className="text-base leading-relaxed text-muted-foreground text-pretty">
+        <p
+          className={cn(
+            "text-base leading-relaxed text-pretty",
+            isInverted ? "text-primary-foreground/80" : "text-muted-foreground",
+          )}
+        >
           {description}
         </p>
       ) : null}
