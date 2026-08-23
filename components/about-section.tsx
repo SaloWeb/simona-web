@@ -49,8 +49,8 @@ export function AboutSection() {
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Sobre SIMONA"
-          title="Nuestra historia empieza en el campo, no en una oficina."
-          description="SIMONA nació de recorrer quintas y viveros del cinturón hortícola de La Plata, entendiendo los desafíos cotidianos del pequeño productor y la necesidad concreta de optimizar agua y energía."
+          title="Una necesidad concreta, vista de cerca."
+          description="Nuestra empresa surge a partir de una experiencia cercana con el sector agrícola y del reconocimiento de una necesidad concreta: mejorar la gestión y el monitoreo de los cultivos."
         />
 
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
@@ -61,23 +61,20 @@ export function AboutSection() {
                 className="w-fit gap-1.5 border-earth/30 bg-card text-earth"
               >
                 <Mountain className="size-3.5" aria-hidden="true" />
-                Origen: La Plata, Buenos Aires
+                Inspirado en los campos de Jujuy
               </Badge>
               <CardTitle className="text-2xl">Historia</CardTitle>
               <CardDescription className="leading-relaxed">
-                Empezamos como un equipo chico enfocado en un problema muy
-                concreto, viendo de cerca el mismo escenario repetirse en
-                quintas y viveros del cinturón hortícola platense: el
-                productor sabe qué necesita su cultivo, pero no tiene datos ni
-                automatización a un precio razonable.
+                El vínculo con el trabajo rural, transmitido a través de la
+                experiencia de un familiar en los campos de Jujuy, nos
+                permitió comprender los desafíos cotidianos del productor.
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-4 text-sm leading-relaxed text-muted-foreground">
               <p>
-                Las soluciones corporativas cobran por hectárea y exigen
-                conectividad permanente. Los kits domésticos se oxidan a la
-                primera lluvia. En el medio quedaba la quinta, el vivero y la
-                huerta urbana: exactamente para quienes construimos SIMONA.
+                Encontramos en la tecnología una oportunidad para optimizar
+                recursos y facilitar la toma de decisiones: esa es la idea
+                que dio origen a SIMONA.
               </p>
               <dl className="grid grid-cols-3 gap-4 border-t border-earth/20 pt-4">
                 {[

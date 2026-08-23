@@ -7,6 +7,7 @@ import { FaqSection } from "@/components/faq-section"
 import { HardwareSection } from "@/components/hardware-section"
 import { HeroSection } from "@/components/hero-section"
 import { IotSimulator } from "@/components/iot-simulator"
+import { ProblemSolutionSection } from "@/components/problem-solution-section"
 import { ProfilesSection } from "@/components/profiles-section"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
@@ -17,6 +18,7 @@ export default function Page() {
       <SiteHeader />
       <main className="flex-1">
         <HeroSection />
+        <ProblemSolutionSection />
         <AboutSection />
         <HardwareSection />
         <ComparisonSection />
