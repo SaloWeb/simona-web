@@ -6,10 +6,10 @@ import { motion } from "motion/react"
 import {
   ArrowRight,
   CircuitBoard,
-  Download,
   ImageOff,
   Leaf,
   Plug,
+  Send,
   Wallet,
   WifiOff,
 } from "lucide-react"
@@ -31,7 +31,7 @@ const telemetry = [
 ]
 
 export function HeroSection() {
-  // Mientras no exista /public/images/hero-huerta.jpg (foto real a agregar
+  // Mientras no exista /public/images/hero-huerta.png (foto real a agregar
   // por el equipo), mostramos un placeholder de marca prolijo en vez de un
   // ícono de imagen rota. Apenas el archivo esté, esto deja de dispararse.
   const [photoMissing, setPhotoMissing] = React.useState(false)
@@ -98,11 +98,11 @@ export function HeroSection() {
             <Button
               size="lg"
               variant="outline"
-              render={<a href="#descargar" />}
+              render={<a href="#contacto" />}
               nativeButton={false}
             >
-              <Download data-icon="inline-start" />
-              Descargar APK (Android)
+              <Send data-icon="inline-start" />
+              Solicitar Kit SIMONA
             </Button>
           </div>
 
@@ -133,13 +133,13 @@ export function HeroSection() {
                 <p className="max-w-[220px] text-xs leading-relaxed text-muted-foreground">
                   Falta la foto real de la huerta en{" "}
                   <code className="rounded bg-background/70 px-1 py-0.5 font-mono">
-                    /public/images/hero-huerta.jpg
+                    /public/images/hero-huerta.png
                   </code>
                 </p>
               </div>
             ) : (
               <Image
-                src="/images/hero-huerta.jpg"
+                src="/images/hero-huerta.png"
                 alt="Huerta con cultivos en hilera y el nodo SIMONA monitoreando humedad de suelo"
                 width={1200}
                 height={900}

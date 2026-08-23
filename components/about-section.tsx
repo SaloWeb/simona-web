@@ -81,7 +81,7 @@ export function AboutSection() {
               </p>
               <dl className="grid grid-cols-3 gap-4 border-t border-earth/20 pt-4">
                 {[
-                  { k: "Sensores", v: "5" },
+                  { k: "Sensores", v: "4" },
                   { k: "Internet", v: "0" },
                   { k: "Cánones", v: "$0" },
                 ].map((stat) => (

@@ -77,7 +77,7 @@ export function ProfilesSection() {
 
             <div className="flex flex-col gap-3 border-t border-border pt-6">
               <span className="font-mono text-[11px] uppercase tracking-wide text-muted-foreground">
-                Perfiles precargados
+                Cultivos precargados dentro de esas categorías
               </span>
               <ul className="flex flex-wrap gap-2">
                 {profileChips.map((chip) => (

@@ -3,6 +3,7 @@ import { AiSection } from "@/components/ai-section"
 import { ComparisonSection } from "@/components/comparison-section"
 import { ContactSection } from "@/components/contact-section"
 import { DownloadSection } from "@/components/download-section"
+import { FaqSection } from "@/components/faq-section"
 import { HardwareSection } from "@/components/hardware-section"
 import { HeroSection } from "@/components/hero-section"
 import { IotSimulator } from "@/components/iot-simulator"
@@ -23,6 +24,7 @@ export default function Page() {
         <IotSimulator />
         <AiSection />
         <DownloadSection />
+        <FaqSection />
         <ContactSection />
       </main>
       <SiteFooter />

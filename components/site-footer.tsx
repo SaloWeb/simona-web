@@ -18,6 +18,7 @@ const columns = [
       { href: "#sobre-nosotros", label: "Sobre nosotros" },
       { href: "#sobre-nosotros", label: "Misión y valores" },
       { href: "#comparativa", label: "Análisis competitivo" },
+      { href: "#faq", label: "Preguntas frecuentes" },
       { href: "#contacto", label: "Contacto B2B" },
     ],
   },

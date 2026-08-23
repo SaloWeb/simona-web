@@ -24,7 +24,6 @@ const APK_URL = "https://simona-agtech.example/simona-app-v4.apk"
 const APK_AVAILABLE = false
 
 const specs = [
-  "Kotlin Native",
   "App v4.0",
   "~18 MB",
   "Android 8.0+",

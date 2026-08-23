@@ -14,6 +14,7 @@ const navLinks = [
   { href: "#comparativa", label: "Tabla Comparativa" },
   { href: "#simulador", label: "Simulador IoT" },
   { href: "#descargar", label: "Descargar App" },
+  { href: "#faq", label: "Preguntas Frecuentes" },
 ]
 
 export function SiteHeader() {
