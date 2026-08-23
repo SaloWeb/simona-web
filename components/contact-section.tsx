@@ -95,7 +95,7 @@ export function ContactSection() {
             <CardContent>
               {sent ? (
                 <div className="flex flex-col items-start gap-4 rounded-xl border border-primary/30 bg-primary/[0.06] p-6">
-                  <span className="flex size-11 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                  <span className="icon-chip flex size-11 items-center justify-center bg-primary text-primary-foreground">
                     <CheckCircle2 className="size-6" aria-hidden="true" />
                   </span>
                   <div className="flex flex-col gap-1">

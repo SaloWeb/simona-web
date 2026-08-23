@@ -21,9 +21,9 @@ export function AiSection() {
         />
 
         <div className="grid gap-6 lg:grid-cols-3">
-          <Card className="border-primary/25 bg-primary/[0.04]">
+          <Card className="border-primary/25 bg-primary/[0.04] shadow-sm">
             <CardHeader>
-              <span className="flex size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+              <span className="icon-chip flex size-10 items-center justify-center bg-primary text-primary-foreground">
                 <Wifi className="size-5" aria-hidden="true" />
               </span>
               <CardTitle>Red 1 — WiFi local</CardTitle>
@@ -38,13 +38,13 @@ export function AiSection() {
             </CardContent>
           </Card>
 
-          <Card className="border-border">
+          <Card className="border-border shadow-sm">
             <CardHeader>
-              <span className="flex size-10 items-center justify-center rounded-lg bg-secondary text-earth">
+              <span className="icon-chip flex size-10 items-center justify-center bg-secondary text-primary/70">
                 <ArrowLeftRight className="size-5" aria-hidden="true" />
               </span>
               <CardTitle>Puente dual-network</CardTitle>
-              <CardDescription className="font-mono text-[11px] uppercase tracking-wide text-earth">
+              <CardDescription className="font-mono text-[11px] uppercase tracking-wide text-primary/70">
                 Android Network Binding
               </CardDescription>
             </CardHeader>
@@ -56,13 +56,13 @@ export function AiSection() {
             </CardContent>
           </Card>
 
-          <Card className="border-accent/30 bg-accent/[0.05]">
+          <Card className="border-primary/40 bg-primary/[0.08] shadow-sm">
             <CardHeader>
-              <span className="flex size-10 items-center justify-center rounded-lg bg-accent text-accent-foreground">
+              <span className="icon-chip flex size-10 items-center justify-center bg-primary/80 text-primary-foreground">
                 <Brain className="size-5" aria-hidden="true" />
               </span>
               <CardTitle>Red 2 — Datos móviles</CardTitle>
-              <CardDescription className="font-mono text-[11px] uppercase tracking-wide text-accent">
+              <CardDescription className="font-mono text-[11px] uppercase tracking-wide text-primary">
                 Gemini 2.0 Flash
               </CardDescription>
             </CardHeader>

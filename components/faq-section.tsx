@@ -26,9 +26,9 @@ const faqs = [
   },
   {
     value: "faq-3",
-    question: "¿SIMONA funciona en La Plata y el conurbano bonaerense?",
+    question: "¿SIMONA funciona en Morón y el oeste del conurbano bonaerense?",
     answer:
-      "Sí. SIMONA nació recorriendo quintas y viveros del cinturón hortícola de La Plata y está pensado específicamente para las condiciones del cordón periurbano bonaerense.",
+      "Sí. SIMONA nació recorriendo quintas y huertas de Morón y la zona oeste del Gran Buenos Aires, y está pensado específicamente para las condiciones del cordón periurbano bonaerense.",
   },
   {
     value: "faq-4",

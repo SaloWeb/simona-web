@@ -174,7 +174,7 @@ export function DownloadSection() {
               <ul className="flex flex-col gap-4 border-t border-border pt-5">
                 {features.map((f) => (
                   <li key={f.title} className="flex items-start gap-3">
-                    <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
+                    <span className="icon-chip flex size-8 shrink-0 items-center justify-center bg-primary/10 text-primary">
                       <f.icon className="size-4" aria-hidden="true" />
                     </span>
                     <div className="flex flex-col gap-0.5">

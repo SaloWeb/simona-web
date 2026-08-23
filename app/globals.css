@@ -7,6 +7,10 @@
 @theme inline {
   --font-sans: 'Inter', 'Inter Fallback';
   --font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback';
+  /* Fuente display: geométrica/técnica (no serif elegante) para separar
+     h1/h2 del cuerpo de texto — sugiere dato/sensor, no "revista". Se usa
+     con moderación: solo headlines y títulos de sección. */
+  --font-display: 'Space Grotesk', 'Space Grotesk Fallback';
   --color-earth: var(--earth);
   --color-earth-foreground: var(--earth-foreground);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -169,5 +173,29 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/*
+ * Firma visual: "chip de sensor". Cuadrado con una esquina cortada en
+ * diagonal (como el pin de un módulo/PCB) en vez del típico
+ * rounded-lg genérico. Se repite en todos los íconos de la página como
+ * motivo propio, ligado a la idea de hardware/sensor de SIMONA.
+ * Respeta motion-reduce: no depende de animación para funcionar.
+ */
+.icon-chip {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 9px),
+    calc(100% - 9px) 100%,
+    0 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-fade {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

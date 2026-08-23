@@ -1,10 +1,13 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import { Inter, JetBrains_Mono, Space_Grotesk } from 'next/font/google'
 import './globals.css'
 
 const _inter = Inter({ subsets: ['latin'] })
 const _jetbrainsMono = JetBrains_Mono({ subsets: ['latin'] })
+// Fuente display para h1/h2 — geométrica y técnica, no la Inter del cuerpo.
+// Ver nota en globals.css (--font-display).
+const _spaceGrotesk = Space_Grotesk({ subsets: ['latin'], weight: ['500', '600', '700'] })
 
 const SITE_URL = 'https://simona-web.vercel.app'
 const SITE_TITLE = 'SIMONA AgTech | Monitoreo y riego automático para el agro argentino'
@@ -24,7 +27,8 @@ export const metadata: Metadata = {
     'agricultura de precisión',
     'viveros',
     'huertas urbanas',
-    'La Plata',
+    'Morón',
+    'GBA Oeste',
   ],
   icons: {
     icon: [
@@ -68,9 +72,10 @@ export const metadata: Metadata = {
 }
 
 // JSON-LD — LocalBusiness: ayuda a posicionar en búsquedas locales tipo
-// "riego automático La Plata". Los campos de redes sociales (sameAs) quedan
-// vacíos por ahora; agregarlos apenas estén definidos (Instagram, WhatsApp
-// Business, etc.) para reforzar la señal de identidad de marca.
+// "riego automático Morón" / "riego automático GBA Oeste". Los campos de
+// redes sociales (sameAs) quedan vacíos por ahora; agregarlos apenas estén
+// definidos (Instagram, WhatsApp Business, etc.) para reforzar la señal de
+// identidad de marca.
 const localBusinessJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
@@ -80,7 +85,7 @@ const localBusinessJsonLd = {
   image: `${SITE_URL}/images/logo-simona.png`,
   address: {
     '@type': 'PostalAddress',
-    addressLocality: 'La Plata',
+    addressLocality: 'Morón',
     addressRegion: 'Buenos Aires',
     addressCountry: 'AR',
   },
@@ -116,10 +121,10 @@ const faqJsonLd = {
     },
     {
       '@type': 'Question',
-      name: '¿SIMONA funciona en La Plata y el conurbano bonaerense?',
+      name: '¿SIMONA funciona en Morón y el oeste del conurbano bonaerense?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Sí. SIMONA nació recorriendo quintas y viveros del cinturón hortícola de La Plata y está pensado específicamente para las condiciones del cordón periurbano bonaerense.',
+        text: 'Sí. SIMONA nació recorriendo quintas y huertas de Morón y la zona oeste del Gran Buenos Aires, y está pensado específicamente para las condiciones del cordón periurbano bonaerense.',
       },
     },
     {

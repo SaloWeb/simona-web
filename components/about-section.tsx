@@ -55,7 +55,7 @@ export function AboutSection() {
         />
 
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-          <Card className="border-earth/25 bg-earth/[0.06]">
+          <Card className="border-earth/25 bg-earth/[0.06] shadow-sm">
             <Image
               src="/images/historia-huerta.jpg"
               alt="Persona trabajando de cerca en un cultivo de una huerta"
@@ -105,10 +105,10 @@ export function AboutSection() {
 
           <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
             {pillars.map((pillar) => (
-              <Card key={pillar.title} className="h-full">
+              <Card key={pillar.title} className="h-full shadow-sm">
                 <CardHeader>
                   <span
-                    className={`flex size-10 items-center justify-center rounded-lg ${toneClasses[pillar.tone]}`}
+                    className={`icon-chip flex size-10 items-center justify-center ${toneClasses[pillar.tone]}`}
                   >
                     <pillar.icon className="size-5" aria-hidden="true" />
                   </span>

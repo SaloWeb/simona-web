@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { AlertTriangle, Sparkles } from "lucide-react"
+import { CircleAlert, Sparkles } from "lucide-react"
 
 import {
   Card,
@@ -24,7 +24,7 @@ export function ProblemSolutionSection() {
         />
 
         <div className="grid gap-6 lg:grid-cols-2">
-          <Card className="border-destructive/25 bg-destructive/[0.04]">
+          <Card className="border-earth/25 bg-earth/[0.04] shadow-sm">
             <Image
               src="/images/problema-manual.jpg"
               alt="Trabajador realizando tareas manuales en un invernadero, sin sensores ni automatización"
@@ -33,10 +33,10 @@ export function ProblemSolutionSection() {
               className="aspect-[16/10] w-full object-cover"
             />
             <CardHeader>
-              <span className="flex size-10 items-center justify-center rounded-lg bg-destructive/10 text-destructive">
-                <AlertTriangle className="size-5" aria-hidden="true" />
+              <span className="icon-chip flex size-10 items-center justify-center bg-earth/10 text-earth">
+                <CircleAlert className="size-5" aria-hidden="true" />
               </span>
-              <CardTitle className="text-xl">El problema</CardTitle>
+              <CardTitle className="text-xl">El desafío</CardTitle>
             </CardHeader>
             <CardContent className="text-sm leading-relaxed text-muted-foreground">
               La producción agrícola enfrenta desafíos relacionados con el
@@ -46,9 +46,9 @@ export function ProblemSolutionSection() {
             </CardContent>
           </Card>
 
-          <Card className="border-primary/25 bg-primary/[0.04]">
+          <Card className="border-primary/25 bg-primary/[0.04] shadow-sm">
             <CardHeader>
-              <span className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <span className="icon-chip flex size-10 items-center justify-center bg-primary/10 text-primary">
                 <Sparkles className="size-5" aria-hidden="true" />
               </span>
               <CardTitle className="text-xl">Nuestra solución</CardTitle>

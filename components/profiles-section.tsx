@@ -56,9 +56,9 @@ export function ProfilesSection() {
             <ul className="flex flex-col gap-4">
               {highlights.map((item) => (
                 <li key={item.title}>
-                  <Card>
+                  <Card className="shadow-sm">
                     <CardContent className="flex items-start gap-4">
-                      <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                      <span className="icon-chip flex size-10 shrink-0 items-center justify-center bg-primary/10 text-primary">
                         <item.icon className="size-5" aria-hidden="true" />
                       </span>
                       <div className="flex flex-col gap-1">
@@ -82,7 +82,12 @@ export function ProfilesSection() {
               <ul className="flex flex-wrap gap-2">
                 {profileChips.map((chip) => (
                   <li key={chip}>
-                    <Badge variant="secondary">{chip}</Badge>
+                    <Badge
+                      variant="outline"
+                      className="border-accent/30 bg-accent/10 text-accent"
+                    >
+                      {chip}
+                    </Badge>
                   </li>
                 ))}
               </ul>

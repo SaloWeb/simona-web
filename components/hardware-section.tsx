@@ -101,35 +101,52 @@ export function HardwareSection() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {hardware.map((item) => (
-            <Card
-              key={item.name}
-              className={
-                item.featured
-                  ? "h-full border-primary/30 bg-primary/[0.04] md:col-span-2 lg:col-span-1"
-                  : "h-full"
-              }
-            >
-              <CardHeader>
-                <span
-                  className={
-                    item.featured
-                      ? "flex size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground"
-                      : "flex size-10 items-center justify-center rounded-lg bg-secondary text-primary"
-                  }
-                >
-                  <item.icon className="size-5" aria-hidden="true" />
-                </span>
-                <CardTitle className="text-balance">{item.name}</CardTitle>
-                <CardDescription className="font-mono text-[11px] uppercase tracking-wide text-primary">
-                  {item.spec}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="text-sm leading-relaxed text-muted-foreground">
-                {item.description}
-              </CardContent>
-            </Card>
-          ))}
+          {hardware.map((item) =>
+            item.featured ? (
+              <Card
+                key={item.name}
+                className="h-full border-primary/30 bg-primary/[0.05] shadow-sm md:col-span-2 lg:col-span-2"
+              >
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <span className="icon-chip flex size-12 items-center justify-center bg-primary text-primary-foreground">
+                      <item.icon className="size-6" aria-hidden="true" />
+                    </span>
+                    <Badge
+                      variant="outline"
+                      className="w-fit gap-1.5 border-primary/40 bg-card text-primary"
+                    >
+                      Núcleo del sistema
+                    </Badge>
+                  </div>
+                  <CardTitle className="text-balance text-xl">
+                    {item.name}
+                  </CardTitle>
+                  <CardDescription className="font-mono text-[11px] uppercase tracking-wide text-primary">
+                    {item.spec}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                  {item.description}
+                </CardContent>
+              </Card>
+            ) : (
+              <Card key={item.name} className="h-full shadow-sm">
+                <CardHeader>
+                  <span className="icon-chip flex size-10 items-center justify-center bg-accent/15 text-accent">
+                    <item.icon className="size-5" aria-hidden="true" />
+                  </span>
+                  <CardTitle className="text-balance">{item.name}</CardTitle>
+                  <CardDescription className="font-mono text-[11px] uppercase tracking-wide text-accent">
+                    {item.spec}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="text-sm leading-relaxed text-muted-foreground">
+                  {item.description}
+                </CardContent>
+              </Card>
+            ),
+          )}
         </div>
       </div>
     </section>

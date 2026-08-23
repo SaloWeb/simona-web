@@ -93,7 +93,7 @@ export function SiteFooter() {
             © 2026 SIMONA AgTech. Todos los derechos reservados.
           </p>
           <p className="font-mono text-[11px] uppercase tracking-wide text-muted-foreground">
-            La Plata, Buenos Aires
+            Morón, Buenos Aires
           </p>
         </div>
       </div>
