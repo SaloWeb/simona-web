@@ -1,0 +1,120 @@
+import {
+  Cpu,
+  Droplet,
+  FlaskConical,
+  Radio,
+  Sun,
+  Thermometer,
+  Zap,
+} from "lucide-react"
+
+import { Badge } from "@/components/ui/badge"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { SectionHeading } from "@/components/section-heading"
+
+const hardware = [
+  {
+    icon: Cpu,
+    name: "Microcontrolador ESP32",
+    spec: "WiFi Access Point · 192.168.4.1",
+    description:
+      "Cerebro del sistema. Procesa la telemetría y levanta su propia red WiFi local para que la app se conecte sin depender de internet.",
+    featured: true,
+  },
+  {
+    icon: Droplet,
+    name: "Sensor de Humedad de Suelo",
+    spec: "Lectura continua · variable principal de riego",
+    description:
+      "Determina el contenido de agua del suelo en tiempo real. Es la variable que dispara la lógica de histéresis del riego automático.",
+  },
+  {
+    icon: Thermometer,
+    name: "Sensor DHT11",
+    spec: "Temperatura + humedad ambiente",
+    description:
+      "Monitorea las condiciones del aire dentro del invernadero o a cielo abierto para contextualizar el riego.",
+  },
+  {
+    icon: FlaskConical,
+    name: "Sensor de pH de Suelo",
+    spec: "Medición manual por muestra",
+    description:
+      "Se usa por muestra (extracto de suelo con agua destilada) en lugar de quedar enterrado de forma continua, para una lectura más precisa y sin desgaste del electrodo. Detecta acidez o alcalinidad fuera de rango para el perfil de cultivo seleccionado.",
+  },
+  {
+    icon: Sun,
+    name: "Sensor de Luz LDR",
+    spec: "Escala 0 – 950 lux",
+    description:
+      "Mide la radiación disponible y evita riegos en los picos de insolación donde el agua se evapora sin llegar a la raíz.",
+  },
+  {
+    icon: Zap,
+    name: "Módulo Relé de Riego",
+    spec: "Accionamiento electromecánico",
+    description:
+      "Cierra el circuito de la bomba de agua de forma autónoma cuando la humedad cae por debajo del umbral del perfil.",
+  },
+]
+
+export function HardwareSection() {
+  return (
+    <section id="solucion" className="border-b border-border py-16 lg:py-24">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <SectionHeading
+            eyebrow="Arquitectura de Hardware"
+            title="Kit SIMONA: todo lo que el cultivo necesita medir."
+            description="Una sola caja, cinco variables agronómicas y un relé que actúa. Sin servidores, sin suscripciones y sin dependencia de la señal del campo."
+          />
+          <Badge
+            variant="outline"
+            className="w-fit shrink-0 gap-1.5 border-accent/30 bg-accent/10 py-1.5 text-accent"
+          >
+            <Radio className="size-3.5" aria-hidden="true" />
+            Próximamente: SIMONA Pro — escalabilidad LoRa
+          </Badge>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {hardware.map((item) => (
+            <Card
+              key={item.name}
+              className={
+                item.featured
+                  ? "h-full border-primary/30 bg-primary/[0.04] md:col-span-2 lg:col-span-1"
+                  : "h-full"
+              }
+            >
+              <CardHeader>
+                <span
+                  className={
+                    item.featured
+                      ? "flex size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground"
+                      : "flex size-10 items-center justify-center rounded-lg bg-secondary text-primary"
+                  }
+                >
+                  <item.icon className="size-5" aria-hidden="true" />
+                </span>
+                <CardTitle className="text-balance">{item.name}</CardTitle>
+                <CardDescription className="font-mono text-[11px] uppercase tracking-wide text-primary">
+                  {item.spec}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="text-sm leading-relaxed text-muted-foreground">
+                {item.description}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
