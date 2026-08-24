@@ -16,7 +16,18 @@ export default function Page() {
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
-      <main className="flex-1">
+      {/*
+        Skip link: invisible hasta recibir foco por teclado (primer Tab al
+        entrar a la página). Deja saltar directo al contenido sin tener que
+        tabular por los 8 links del nav — accesibilidad básica de teclado.
+      */}
+      <a
+        href="#main-content"
+        className="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:left-4 focus-visible:top-4 focus-visible:z-[100] focus-visible:rounded-lg focus-visible:bg-primary focus-visible:px-4 focus-visible:py-2.5 focus-visible:text-sm focus-visible:font-medium focus-visible:text-primary-foreground focus-visible:shadow-lg"
+      >
+        Saltar al contenido principal
+      </a>
+      <main id="main-content" className="flex-1">
         <HeroSection />
         <ProblemSolutionSection />
         <AboutSection />

@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { motion } from "motion/react"
+import { track } from "@vercel/analytics"
 import {
   ArrowRight,
   Droplet,
@@ -63,6 +64,16 @@ export function IotSimulator() {
   const [temperature, setTemperature] = React.useState(DEFAULTS.temperature)
   const [ph, setPh] = React.useState(DEFAULTS.ph)
   const [light, setLight] = React.useState(DEFAULTS.light)
+
+  // Un solo evento por sesión (no uno por cada tick del slider, que sería
+  // ruido): marca que la persona efectivamente tocó el simulador, más allá
+  // de haber llegado hasta la sección con el scroll.
+  const hasTrackedInteraction = React.useRef(false)
+  function trackFirstInteraction() {
+    if (hasTrackedInteraction.current) return
+    hasTrackedInteraction.current = true
+    track("Simulator interacted")
+  }
 
   // Histéresis: la bomba arranca por debajo del mínimo y corta al alcanzar el máximo.
   const [pumpOn, setPumpOn] = React.useState(false)
@@ -146,6 +157,7 @@ export function IotSimulator() {
     setPh(DEFAULTS.ph)
     setLight(DEFAULTS.light)
     setPumpOn(false)
+    track("Simulator reset")
   }
 
   return (
@@ -240,11 +252,12 @@ export function IotSimulator() {
                           variant="outline"
                           size="icon-sm"
                           disabled={r.value <= r.min}
-                          onClick={() =>
+                          onClick={() => {
+                            trackFirstInteraction()
                             setPh((v) =>
                               Math.max(r.min, Math.round((v - r.step) * 10) / 10),
                             )
-                          }
+                          }}
                           aria-label={`Bajar ${r.label}`}
                         >
                           <Minus className="size-3.5" aria-hidden="true" />
@@ -264,11 +277,12 @@ export function IotSimulator() {
                           variant="outline"
                           size="icon-sm"
                           disabled={r.value >= r.max}
-                          onClick={() =>
+                          onClick={() => {
+                            trackFirstInteraction()
                             setPh((v) =>
                               Math.min(r.max, Math.round((v + r.step) * 10) / 10),
                             )
-                          }
+                          }}
                           aria-label={`Subir ${r.label}`}
                         >
                           <Plus className="size-3.5" aria-hidden="true" />
@@ -282,9 +296,10 @@ export function IotSimulator() {
                         max={r.max}
                         step={r.step}
                         aria-label={r.label}
-                        onValueChange={(v) =>
+                        onValueChange={(v) => {
+                          trackFirstInteraction()
                           setters[r.key](Array.isArray(v) ? v[0] : (v as number))
-                        }
+                        }}
                       />
                     )}
                     <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-wide text-muted-foreground">

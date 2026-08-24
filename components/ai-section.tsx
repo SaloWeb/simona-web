@@ -1,4 +1,4 @@
-import { ArrowLeftRight, Brain, Signal, Wifi } from "lucide-react"
+import { ArrowLeftRight, Brain, MoveDown, Signal, Smartphone, Wifi } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
 import {
@@ -142,6 +142,49 @@ function DualNetworkDiagram() {
   )
 }
 
+/**
+ * Versión mobile del diagrama anterior: el SVG con viewBox 600x170 se
+ * achica proporcionalmente en pantallas angostas y el texto interno
+ * (13px/9px en unidades del viewBox) queda ilegible por debajo de ~500px
+ * reales. En vez de forzar el mismo dibujo, esta versión apilada usa el
+ * mismo recorrido (ESP32 → App SIMONA → IA) con texto a tamaño real.
+ */
+function DualNetworkDiagramMobile() {
+  return (
+    <div className="mx-auto flex w-full max-w-xs flex-col items-center gap-1.5">
+      <div className="flex w-full items-center gap-2.5 rounded-xl border border-primary/30 bg-primary/10 px-3.5 py-2.5">
+        <Wifi className="size-4 shrink-0 text-primary" aria-hidden="true" />
+        <div className="flex flex-col">
+          <span className="text-[13px] font-semibold text-foreground">ESP32</span>
+          <span className="font-mono text-[9px] uppercase text-muted-foreground">
+            Riego · WiFi local
+          </span>
+        </div>
+      </div>
+      <MoveDown className="size-3.5 text-primary/60" aria-hidden="true" />
+      <div className="flex w-full items-center gap-2.5 rounded-xl border border-foreground/20 bg-card px-3.5 py-2.5">
+        <Smartphone className="size-4 shrink-0 text-foreground/70" aria-hidden="true" />
+        <div className="flex flex-col">
+          <span className="text-[13px] font-semibold text-foreground">App SIMONA</span>
+          <span className="font-mono text-[9px] uppercase text-muted-foreground">
+            Usa las 2 redes a la vez
+          </span>
+        </div>
+      </div>
+      <MoveDown className="size-3.5 text-primary/60" aria-hidden="true" />
+      <div className="flex w-full items-center gap-2.5 rounded-xl border border-primary/30 bg-primary/10 px-3.5 py-2.5">
+        <Brain className="size-4 shrink-0 text-primary" aria-hidden="true" />
+        <div className="flex flex-col">
+          <span className="text-[13px] font-semibold text-foreground">IA</span>
+          <span className="font-mono text-[9px] uppercase text-muted-foreground">
+            Internet · Datos móviles
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function AiSection() {
   return (
     /*
@@ -162,7 +205,12 @@ export function AiSection() {
         />
 
         <div className="rounded-2xl border border-border bg-card px-4 py-8 shadow-sm sm:px-8">
-          <DualNetworkDiagram />
+          <div className="sm:hidden">
+            <DualNetworkDiagramMobile />
+          </div>
+          <div className="hidden sm:block">
+            <DualNetworkDiagram />
+          </div>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-3">

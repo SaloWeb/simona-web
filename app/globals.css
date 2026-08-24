@@ -71,7 +71,7 @@
   /* Verde de marca #8DC035, oscurecido a L=0.55 para cumplir contraste AA (4.6:1) en texto/botones.
      El verde de marca original (oklch(0.746 0.173 127.8) / #8DC035) se sigue usando tal cual
      para fondos con tinte, íconos grandes y el logo. */
-  --accent: oklch(0.55 0.173 127.8);
+  --accent: oklch(0.5 0.173 127.8);
   --accent-foreground: oklch(0.99 0.005 240);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.906 0.012 140);

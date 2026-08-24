@@ -1,16 +1,15 @@
 "use client"
 
 import * as React from "react"
+import { track } from "@vercel/analytics"
 import {
   CheckCircle2,
-  FlaskConical,
   GraduationCap,
   Landmark,
   Send,
   Warehouse,
 } from "lucide-react"
 
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -56,11 +55,44 @@ const audiences = [
 ]
 
 export function ContactSection() {
-  const [sent, setSent] = React.useState(false)
+  const [status, setStatus] = React.useState<"idle" | "sending" | "sent" | "error">("idle")
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null)
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    setSent(true)
+    setStatus("sending")
+    setErrorMessage(null)
+
+    const formData = new FormData(event.currentTarget)
+    const payload = Object.fromEntries(formData.entries())
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      })
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => null)
+        setErrorMessage(data?.error ?? "No se pudo enviar el mensaje. Probá de nuevo.")
+        setStatus("error")
+        track("Contact form error", {
+          segmento: String(payload.segmento ?? ""),
+          status: response.status,
+        })
+        return
+      }
+
+      setStatus("sent")
+      track("Contact form submitted", {
+        segmento: String(payload.segmento ?? ""),
+      })
+    } catch {
+      setErrorMessage("No se pudo conectar con el servidor. Revisá tu conexión e intentá de nuevo.")
+      setStatus("error")
+      track("Contact form error", { segmento: String(payload.segmento ?? ""), status: "network" })
+    }
   }
 
   return (
@@ -95,52 +127,30 @@ export function ContactSection() {
 
           <Card>
             <CardHeader>
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div className="flex flex-col gap-1">
-                  <CardTitle>Formulario de contacto</CardTitle>
-                  <CardDescription>
-                    Respondemos con especificaciones técnicas y presupuesto de
-                    kit.
-                  </CardDescription>
-                </div>
-                {/*
-                  TODO(backend): este formulario todavía es 100%
-                  client-side — setSent(true) no persiste el envío en
-                  ningún lado (ver handleSubmit). Es el ítem más urgente
-                  del sitio si el objetivo es captar leads reales; hasta
-                  conectar un backend, este badge deja explícito en la UI
-                  que la consulta no viaja a ningún servidor todavía —
-                  mismo criterio del badge "MODO DEMO" que ya usa el
-                  dashboard del simulador de SIMONA.
-                */}
-                <Badge
-                  variant="outline"
-                  className="w-fit shrink-0 gap-1.5 border-accent/30 bg-accent/10 text-accent"
-                >
-                  <FlaskConical className="size-3.5" aria-hidden="true" />
-                  Formulario de prueba
-                </Badge>
+              <div className="flex flex-col gap-1">
+                <CardTitle>Formulario de contacto</CardTitle>
+                <CardDescription>
+                  Respondemos con especificaciones técnicas y presupuesto de
+                  kit.
+                </CardDescription>
               </div>
             </CardHeader>
             <CardContent>
-              {sent ? (
+              {status === "sent" ? (
                 <div className="flex flex-col items-start gap-4 rounded-xl border border-primary/30 bg-primary/[0.06] p-6">
                   <span className="icon-chip flex size-11 items-center justify-center bg-primary text-primary-foreground">
                     <CheckCircle2 className="size-6" aria-hidden="true" />
                   </span>
                   <div className="flex flex-col gap-1">
                     <h3 className="text-lg font-medium text-foreground">
-                      Datos cargados (formulario de prueba)
+                      Consulta enviada
                     </h3>
                     <p className="text-sm leading-relaxed text-muted-foreground">
-                      Esta versión del sitio todavía no envía la consulta a
-                      un servidor real. Guardá tus datos por otro medio
-                      mientras conectamos el formulario — no se pierde nada
-                      de tu lado, pero tampoco nos llega nada del nuestro
-                      todavía.
+                      Recibimos tus datos y te vamos a responder por mail con
+                      especificaciones técnicas y presupuesto del kit.
                     </p>
                   </div>
-                  <Button variant="outline" onClick={() => setSent(false)}>
+                  <Button variant="outline" onClick={() => setStatus("idle")}>
                     Enviar otra consulta
                   </Button>
                 </div>
@@ -256,9 +266,23 @@ export function ContactSection() {
                       </FieldDescription>
                     </Field>
 
-                    <Button type="submit" size="lg" className="w-full sm:w-fit">
+                    {status === "error" && errorMessage ? (
+                      <p
+                        role="alert"
+                        className="rounded-lg border border-destructive/30 bg-destructive/[0.06] px-3.5 py-2.5 text-sm text-destructive"
+                      >
+                        {errorMessage}
+                      </p>
+                    ) : null}
+
+                    <Button
+                      type="submit"
+                      size="lg"
+                      className="w-full sm:w-fit"
+                      disabled={status === "sending"}
+                    >
                       <Send data-icon="inline-start" />
-                      Enviar consulta
+                      {status === "sending" ? "Enviando..." : "Enviar consulta"}
                     </Button>
                   </FieldGroup>
                 </form>

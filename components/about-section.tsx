@@ -61,6 +61,8 @@ export function AboutSection() {
               alt="Persona trabajando de cerca en un cultivo de una huerta"
               width={678}
               height={452}
+              sizes="(min-width: 1024px) 560px, 100vw"
+              loading="lazy"
               className="aspect-[16/10] w-full object-cover"
             />
             <CardHeader>

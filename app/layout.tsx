@@ -18,7 +18,24 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
-  generator: 'v0.app',
+  // Sitio de una sola ruta: el canonical es siempre la raíz. Evita que
+  // parámetros de tracking (?utm_source=...) generen URLs "duplicadas"
+  // a ojos de un crawler.
+  alternates: {
+    canonical: SITE_URL,
+  },
+  // Explícito en vez de confiar en el default: deja claro que se permite
+  // indexar y seguir enlaces, y le pide a Googlebot preview de imagen
+  // grande (mejor CTR en resultados) en vez del recorte chico por defecto.
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+    },
+  },
   keywords: [
     'AgTech',
     'riego automático',
