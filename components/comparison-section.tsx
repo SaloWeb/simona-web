@@ -65,7 +65,7 @@ export function ComparisonSection() {
   return (
     <section
       id="comparativa"
-      className="border-b border-border bg-secondary/40 py-16 lg:py-24"
+      className="section-texture border-b border-border bg-secondary/40 py-16 lg:py-24"
     >
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 sm:px-6 lg:px-8">
         <SectionHeading
@@ -108,26 +108,28 @@ export function ComparisonSection() {
                   <Badge className="shrink-0">SIMONA</Badge>
                 ) : null}
               </CardHeader>
-              <CardContent className="flex flex-col gap-3">
-                {criteria.map((row) => (
-                  <div
-                    key={row.label}
-                    className="flex flex-col gap-0.5 border-t border-border/70 pt-3 first:border-t-0 first:pt-0"
-                  >
-                    <dt className="font-mono text-[10px] uppercase tracking-wide text-muted-foreground">
-                      {row.label}
-                    </dt>
-                    <dd
-                      className={
-                        competitor.highlight
-                          ? "text-sm font-medium text-foreground"
-                          : "text-sm text-muted-foreground"
-                      }
+              <CardContent>
+                <dl className="flex flex-col gap-3">
+                  {criteria.map((row) => (
+                    <div
+                      key={row.label}
+                      className="flex flex-col gap-0.5 border-t border-border/70 pt-3 first:border-t-0 first:pt-0"
                     >
-                      {row[competitor.key]}
-                    </dd>
-                  </div>
-                ))}
+                      <dt className="font-mono text-[10px] uppercase tracking-wide text-muted-foreground">
+                        {row.label}
+                      </dt>
+                      <dd
+                        className={
+                          competitor.highlight
+                            ? "text-sm font-medium text-foreground"
+                            : "text-sm text-muted-foreground"
+                        }
+                      >
+                        {row[competitor.key]}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
               </CardContent>
             </Card>
           ))}

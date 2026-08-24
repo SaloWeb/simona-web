@@ -71,7 +71,7 @@
   /* Verde de marca #8DC035, oscurecido a L=0.55 para cumplir contraste AA (4.6:1) en texto/botones.
      El verde de marca original (oklch(0.746 0.173 127.8) / #8DC035) se sigue usando tal cual
      para fondos con tinte, íconos grandes y el logo. */
-  --accent: oklch(0.55 0.173 127.8);
+  --accent: oklch(0.5 0.173 127.8);
   --accent-foreground: oklch(0.99 0.005 240);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.906 0.012 140);
@@ -191,6 +191,23 @@
     calc(100% - 9px) 100%,
     0 100%
   );
+}
+
+/*
+ * Ritmo visual entre secciones (punto 9 del plan): las secciones con tint
+ * (bg-secondary/40) quedaban visualmente casi idénticas al fondo plano
+ * porque el tint es muy sutil por diseño (accesibilidad/contraste). Esta
+ * grilla de puntos de bajísima opacidad les da una textura perceptible sin
+ * tocar la paleta de color ni el contraste de texto. Usa var(--foreground)
+ * vía color-mix, así se adapta solo entre tema claro y oscuro.
+ */
+.section-texture {
+  background-image: radial-gradient(
+    circle,
+    color-mix(in oklch, var(--foreground) 8%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -33,9 +33,13 @@ interface AppMockupProps {
 }
 
 export function AppMockup({ variant = "perfiles" }: AppMockupProps) {
+  // Ilustración decorativa: reproduce visualmente una pantalla de la app,
+  // pero no es UI real ni interactiva. El contenido equivalente ya está
+  // en las cards de texto que la acompañan (Hero, Perfiles), así que se
+  // oculta de lectores de pantalla para no duplicar/confundir el contenido.
   if (variant === "rangos") {
     return (
-      <div className="flex h-full w-full flex-col bg-card">
+      <div className="flex h-full w-full flex-col bg-card" aria-hidden="true">
         {/* barra de estado simulada */}
         <div className="flex items-center justify-between px-4 pb-1 pt-2.5 font-mono text-[9px] text-muted-foreground">
           <span>9:41</span>
@@ -92,7 +96,7 @@ export function AppMockup({ variant = "perfiles" }: AppMockupProps) {
   }
 
   return (
-    <div className="flex h-full w-full flex-col bg-card">
+    <div className="flex h-full w-full flex-col bg-card" aria-hidden="true">
       {/* barra de estado simulada */}
       <div className="flex items-center justify-between px-4 pb-1 pt-2.5 font-mono text-[9px] text-muted-foreground">
         <span>9:41</span>

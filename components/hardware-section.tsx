@@ -81,6 +81,8 @@ export function HardwareSection() {
             alt="Filas de plantines en un vivero bajo malla media sombra"
             width={678}
             height={452}
+            sizes="(min-width: 1024px) 1200px, 100vw"
+            loading="lazy"
             className="aspect-[21/9] w-full object-cover"
           />
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-foreground/70 to-transparent p-4 sm:p-5">

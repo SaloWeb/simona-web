@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Image from "next/image"
+import { track } from "@vercel/analytics"
 import { Menu, X } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -86,7 +87,13 @@ export function SiteHeader() {
 
         <div className="flex shrink-0 items-center gap-2">
           <ThemeToggle />
-          <Button size="sm" className="hidden sm:inline-flex" render={<a href="#contacto" />} nativeButton={false}>
+          <Button
+            size="sm"
+            className="hidden sm:inline-flex"
+            render={<a href="#contacto" />}
+            nativeButton={false}
+            onClick={() => track("Kit CTA clicked", { location: "header" })}
+          >
             Solicitar Kit SIMONA
           </Button>
           <Button
@@ -130,7 +137,10 @@ export function SiteHeader() {
             className="mt-2"
             render={<a href="#contacto" />}
             nativeButton={false}
-            onClick={() => setOpen(false)}
+            onClick={() => {
+              setOpen(false)
+              track("Kit CTA clicked", { location: "header_mobile" })
+            }}
           >
             Solicitar Kit SIMONA
           </Button>

@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { motion, useReducedMotion } from "motion/react"
+import { track } from "@vercel/analytics"
 import { CircleCheck } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
@@ -56,6 +57,7 @@ export function HeroSection() {
               size="lg"
               render={<a href="#contacto" />}
               nativeButton={false}
+              onClick={() => track("Kit CTA clicked", { location: "hero" })}
             >
               Solicitar Kit SIMONA
             </Button>
@@ -102,6 +104,7 @@ export function HeroSection() {
               alt="Huerta con cultivos regados de forma automática por el sistema SIMONA"
               fill
               priority
+              sizes="(min-width: 1024px) 480px, (min-width: 640px) 600px, 100vw"
               className="object-cover"
             />
           </div>

@@ -33,9 +33,16 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
+function CardTitle({ className, ...props }: React.ComponentProps<"h3">) {
+  // Semánticamente un heading real (h3): en casi todos los usos del sitio
+  // (About, Hardware, Comparativa, IA, Contacto, Simulador, Descarga) esto
+  // es el título de un bloque de contenido — Tailwind Preflight resetea
+  // margin/font-size de los headings, así que el cambio de <div> a <h3> es
+  // visualmente neutro y solo mejora la jerarquía para lectores de
+  // pantalla y motores de búsqueda. No hay ningún h3 anidado dentro de
+  // otro h3 en el árbol actual, así que no rompe la jerarquía h1→h2→h3.
   return (
-    <div
+    <h3
       data-slot="card-title"
       className={cn(
         "text-base leading-snug font-medium group-data-[size=sm]/card:text-sm",

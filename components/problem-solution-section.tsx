@@ -39,6 +39,8 @@ export function ProblemSolutionSection() {
               alt="Trabajador realizando tareas manuales en un invernadero, sin sensores ni automatización"
               width={547}
               height={365}
+              sizes="(min-width: 1024px) 600px, 100vw"
+              loading="lazy"
               className="aspect-[16/10] w-full object-cover"
             />
             <CardHeader>

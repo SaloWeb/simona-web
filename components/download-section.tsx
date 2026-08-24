@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { QRCodeSVG } from "qrcode.react"
+import { track } from "@vercel/analytics"
 import {
   BellRing,
   CheckCircle2,
@@ -101,12 +102,16 @@ export function DownloadSection() {
   function handleNotifySubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setNotifySent(true)
+    // Mientras APK_AVAILABLE sea false, este mini-formulario es el único
+    // CTA de conversión real de la sección: sirve como proxy del "click de
+    // descarga" hasta que haya un build firmado para publicar.
+    track("APK notify submitted")
   }
 
   return (
     <section
       id="descargar"
-      className="border-b border-border bg-secondary/40 py-16 lg:py-24"
+      className="section-texture border-b border-border bg-secondary/40 py-16 lg:py-24"
     >
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 sm:px-6 lg:px-8">
         <SectionHeading
@@ -144,6 +149,7 @@ export function DownloadSection() {
                     className="w-full"
                     render={<a href={APK_URL} download />}
                     nativeButton={false}
+                    onClick={() => track("APK download clicked")}
                   >
                     <Download data-icon="inline-start" />
                     Descargar APK (Directo)
