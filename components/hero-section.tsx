@@ -7,7 +7,6 @@ import { CircleCheck } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { AppMockup } from "@/components/app-mockup"
 
 const valueProps = ["Sin internet", "Pago único, sin cánones", "Plug & Play"]
 
@@ -110,7 +109,13 @@ export function HeroSection() {
           </div>
           <div className="relative mt-24 w-[240px] overflow-hidden rounded-[2rem] border border-border bg-card shadow-xl sm:w-[260px]">
             <div className="aspect-[9/19]">
-              <AppMockup />
+              <Image
+                src="/images/screenshots/app-perfil.jpg"
+                alt="Pantalla de la app SIMONA: elegir un perfil de cultivo (paso 1 de 3)"
+                width={720}
+                height={1480}
+                className="h-full w-full object-cover object-top"
+              />
             </div>
           </div>
         </motion.div>

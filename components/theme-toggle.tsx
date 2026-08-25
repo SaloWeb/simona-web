@@ -1,72 +1,54 @@
 "use client"
 
-import * as React from "react"
 import { Moon, Sun } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 
 /**
- * Los tokens de dark mode ya estaban definidos en globals.css (.dark {...})
- * pero no había forma de alcanzarlos desde la UI. Este switch lee/escribe
- * la preferencia en localStorage bajo la misma clave ("simona-theme") que
- * ya usa el script anti-flash de layout.tsx, así ambos quedan en sync.
+ * El ícono NUNCA depende de un booleano calculado en React (ni de
+ * useState ni de useEffect). Se renderizan los dos íconos siempre y se
+ * muestra uno u otro con la variante `dark:` de Tailwind (ver
+ * `@custom-variant dark` en globals.css), que lee la clase "dark" del
+ * <html> directamente vía CSS.
  *
- * Nota: antes el botón se pintaba invisible + disabled hasta que un
- * useEffect confirmaba el tema post-mount. Eso dejaba una ventana real
- * (más larga en equipos lentos) donde un click no hacía nada porque el
- * botón ni siquiera era clickeable. Ahora el estado inicial se lee de
- * forma sincrónica en el primer render (mismo criterio que el script
- * anti-flash: localStorage -> prefers-color-scheme -> clase ya presente
- * en <html>), así el botón es interactivo desde el primer pintado.
+ * Por qué: el enfoque anterior calculaba isDark con un useState(() =>
+ * ...) que en el server siempre daba "false" (no hay `document`) pero en
+ * el cliente podía dar "true" (preferencia del SO o localStorage). Ese
+ * mismatch entre el ícono que pinta el servidor y el que recalcula el
+ * cliente es un hydration mismatch real de React — en la mayoría de los
+ * navegadores se resuelve solo, pero en algunos (WebViews de Android más
+ * viejos, Safari en ciertos casos) la reconciliación falla y el botón
+ * queda sin click handler activo hasta recargar. Sacando el ícono del
+ * árbol de React (resolviéndolo por CSS) el marcado es idéntico en
+ * server y cliente, así que no hay nada que hidrate distinto y el
+ * botón queda interactivo desde el primer pintado, en cualquier
+ * dispositivo.
+ *
+ * El script anti-flash de layout.tsx ya aplica la clase "dark" al
+ * <html> de forma síncrona antes de la primera pintura, así que el CSS
+ * ya tiene la clase correcta disponible incluso en el primer frame.
  */
-function readInitialIsDark(): boolean {
-  if (typeof document === "undefined") return false
+function toggleTheme() {
+  const isDark = document.documentElement.classList.toggle("dark")
   try {
-    const stored = localStorage.getItem("simona-theme")
-    if (stored) return stored === "dark"
+    localStorage.setItem("simona-theme", isDark ? "dark" : "light")
   } catch {
-    // localStorage puede fallar en modo privado o estar bloqueado por
-    // política del equipo — seguimos con el resto de las señales.
-  }
-  if (document.documentElement.classList.contains("dark")) return true
-  try {
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-  } catch {
-    return false
+    // localStorage puede fallar en modo privado — no es crítico, el
+    // toggle sigue funcionando para la sesión actual.
   }
 }
 
 export function ThemeToggle() {
-  const [isDark, setIsDark] = React.useState<boolean>(readInitialIsDark)
-
-  // Por si el script anti-flash de layout.tsx decidió algo distinto a lo
-  // que este componente calculó en su propio render inicial (mismatch de
-  // hidratación), sincronizamos una vez montado sin bloquear el click.
-  React.useEffect(() => {
-    setIsDark(document.documentElement.classList.contains("dark"))
-  }, [])
-
-  function toggle() {
-    const next = !isDark
-    setIsDark(next)
-    document.documentElement.classList.toggle("dark", next)
-    try {
-      localStorage.setItem("simona-theme", next ? "dark" : "light")
-    } catch {
-      // localStorage puede fallar en modo privado — no es crítico, el
-      // toggle sigue funcionando para la sesión actual.
-    }
-  }
-
   return (
     <Button
       type="button"
       variant="outline"
       size="icon"
-      onClick={toggle}
-      aria-label={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+      onClick={toggleTheme}
+      aria-label="Cambiar entre modo claro y oscuro"
     >
-      {isDark ? <Moon /> : <Sun />}
+      <Sun className="dark:hidden" />
+      <Moon className="hidden dark:block" />
     </Button>
   )
 }
