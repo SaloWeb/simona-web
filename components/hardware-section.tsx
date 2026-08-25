@@ -78,7 +78,7 @@ export function HardwareSection() {
         <div className="relative overflow-hidden rounded-2xl border border-border">
           <Image
             src="/images/vivero-plantines.jpg"
-            alt="Filas de plantines en un vivero bajo malla media sombra"
+            alt="Huerta urbana en macetas y neumáticos reciclados, con lechugas y aromáticas"
             width={678}
             height={452}
             sizes="(min-width: 1024px) 1200px, 100vw"
@@ -87,8 +87,8 @@ export function HardwareSection() {
           />
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-foreground/70 to-transparent p-4 sm:p-5">
             <p className="max-w-md text-sm leading-relaxed text-primary-foreground">
-              Pensado también para viveros: un kit por túnel o sector,
-              monitoreando humedad y luz fila por fila.
+              También pensado para la huerta de patio: un kit por macetero
+              o tacho, monitoreando humedad y luz maceta por maceta.
             </p>
           </div>
         </div>

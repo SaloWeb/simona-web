@@ -100,8 +100,8 @@ export function HeroSection() {
         >
           <div className="absolute inset-x-6 top-6 -z-10 aspect-[16/10] overflow-hidden rounded-2xl border border-border shadow-sm lg:inset-x-10">
             <Image
-              src="/images/hero-huerta.png"
-              alt="Huerta con cultivos regados de forma automática por el sistema SIMONA"
+              src="/images/hero-huerta.jpg"
+              alt="Vivero con plantines bajo media sombra, el tipo de cultivo que monitorea SIMONA"
               fill
               priority
               sizes="(min-width: 1024px) 480px, (min-width: 640px) 600px, 100vw"

@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { Leaf } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
@@ -73,6 +74,18 @@ export function ComparisonSection() {
           title="Matriz comparativa de mercado"
           description="Dónde se para SIMONA frente a las alternativas que hoy tiene el productor argentino."
         />
+
+        <div className="overflow-hidden rounded-2xl border border-border">
+          <Image
+            src="/images/comparativa-vivero.jpg"
+            alt="Vivero a cielo abierto con decenas de plantines en macetas bajo media sombra"
+            width={955}
+            height={536}
+            sizes="(min-width: 1024px) 1200px, 100vw"
+            loading="lazy"
+            className="aspect-[21/7] w-full object-cover"
+          />
+        </div>
 
         {/*
           Mobile (< md): cards apiladas, una por competidor, con SIMONA

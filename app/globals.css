@@ -95,75 +95,94 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+/*
+ * Modo oscuro de marca (reemplaza la paleta gris neutra por defecto de
+ * shadcn — pendiente señalado en Anexo H.9). Fondo derivado del gris
+ * oscuro de marca (#262626 ≈ oklch 0.2 0 0), con azul (#1A75B3, hue
+ * 244.8) y verde (#8DC035, hue 127.8) aclarados respecto de sus valores
+ * en modo claro para mantener contraste AA sobre fondo oscuro. El texto
+ * "-foreground" de primary/accent es oscuro (no blanco) porque esos
+ * tokens ahora son colores CLAROS incluso en dark mode.
+ */
 .dark {
   color-scheme: dark;
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --background: oklch(0.16 0.004 240);
+  --foreground: oklch(0.96 0.004 240);
+  --card: oklch(0.205 0.006 240);
+  --card-foreground: oklch(0.96 0.004 240);
+  --popover: oklch(0.225 0.006 240);
+  --popover-foreground: oklch(0.96 0.004 240);
+  --primary: oklch(0.72 0.11 244.8);
+  --primary-foreground: oklch(0.16 0.03 244.8);
+  --secondary: oklch(0.27 0.018 145);
+  --secondary-foreground: oklch(0.92 0.03 145);
+  --muted: oklch(0.24 0.006 240);
+  --muted-foreground: oklch(0.68 0.01 240);
+  --accent: oklch(0.72 0.15 127.8);
+  --accent-foreground: oklch(0.16 0.03 127.8);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: oklch(0.65 0.1 244.8);
+  --chart-1: oklch(0.72 0.11 244.8);
+  --chart-2: oklch(0.72 0.15 127.8);
+  --chart-3: oklch(0.58 0.09 54.3);
+  --chart-4: oklch(0.6 0.14 127.8);
+  --chart-5: oklch(0.68 0.01 240);
+  --earth: oklch(0.58 0.09 54.3);
+  --earth-foreground: oklch(0.16 0.02 54.3);
+  --sidebar: oklch(0.205 0.006 240);
+  --sidebar-foreground: oklch(0.96 0.004 240);
+  --sidebar-primary: oklch(0.72 0.11 244.8);
+  --sidebar-primary-foreground: oklch(0.16 0.03 244.8);
+  --sidebar-accent: oklch(0.27 0.018 145);
+  --sidebar-accent-foreground: oklch(0.92 0.03 145);
+  --sidebar-border: oklch(1 0 0 / 12%);
+  --sidebar-ring: oklch(0.65 0.1 244.8);
 }
 
 @media (prefers-color-scheme: dark) {
+  /*
+   * Mismos tokens que .dark (arriba) — se mantienen en sync a mano ya
+   * que este bloque cubre el caso "el sistema está en oscuro pero el
+   * usuario todavía no tocó el toggle" (ver script anti-flash en
+   * layout.tsx). Si se edita uno, editar el otro.
+   */
   :root:not(.light) {
     color-scheme: dark;
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
+    --background: oklch(0.16 0.004 240);
+    --foreground: oklch(0.96 0.004 240);
+    --card: oklch(0.205 0.006 240);
+    --card-foreground: oklch(0.96 0.004 240);
+    --popover: oklch(0.225 0.006 240);
+    --popover-foreground: oklch(0.96 0.004 240);
+    --primary: oklch(0.72 0.11 244.8);
+    --primary-foreground: oklch(0.16 0.03 244.8);
+    --secondary: oklch(0.27 0.018 145);
+    --secondary-foreground: oklch(0.92 0.03 145);
+    --muted: oklch(0.24 0.006 240);
+    --muted-foreground: oklch(0.68 0.01 240);
+    --accent: oklch(0.72 0.15 127.8);
+    --accent-foreground: oklch(0.16 0.03 127.8);
     --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
+    --border: oklch(1 0 0 / 12%);
+    --input: oklch(1 0 0 / 16%);
+    --ring: oklch(0.65 0.1 244.8);
+    --chart-1: oklch(0.72 0.11 244.8);
+    --chart-2: oklch(0.72 0.15 127.8);
+    --chart-3: oklch(0.58 0.09 54.3);
+    --chart-4: oklch(0.6 0.14 127.8);
+    --chart-5: oklch(0.68 0.01 240);
+    --earth: oklch(0.58 0.09 54.3);
+    --earth-foreground: oklch(0.16 0.02 54.3);
+    --sidebar: oklch(0.205 0.006 240);
+    --sidebar-foreground: oklch(0.96 0.004 240);
+    --sidebar-primary: oklch(0.72 0.11 244.8);
+    --sidebar-primary-foreground: oklch(0.16 0.03 244.8);
+    --sidebar-accent: oklch(0.27 0.018 145);
+    --sidebar-accent-foreground: oklch(0.92 0.03 145);
+    --sidebar-border: oklch(1 0 0 / 12%);
+    --sidebar-ring: oklch(0.65 0.1 244.8);
   }
 }
 
