@@ -15,11 +15,12 @@ import { SiteHeader } from "@/components/site-header"
 export default function Page() {
   return (
     <div className="flex min-h-screen flex-col">
-      <SiteHeader />
       {/*
         Skip link: invisible hasta recibir foco por teclado (primer Tab al
-        entrar a la página). Deja saltar directo al contenido sin tener que
-        tabular por los 8 links del nav — accesibilidad básica de teclado.
+        entrar a la página). Va ANTES del header a propósito: si quedara
+        después, el primer Tab caería en el logo/nav del header y habría
+        que tabular por los 8 links del índice antes de llegar acá,
+        anulando el propósito del skip link.
       */}
       <a
         href="#main-content"
@@ -27,6 +28,7 @@ export default function Page() {
       >
         Saltar al contenido principal
       </a>
+      <SiteHeader />
       <main id="main-content" className="flex-1">
         <HeroSection />
         <ProblemSolutionSection />

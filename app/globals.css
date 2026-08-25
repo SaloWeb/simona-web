@@ -196,6 +196,35 @@
 }
 
 /*
+ * Bug: el header queda "sticky top-0" con 64px de alto (h-16), pero
+ * ninguna sección con id (las que apuntan los links del nav, el footer y
+ * el skip link) tenía scroll-margin-top. Resultado: al navegar por ancla,
+ * el título de la sección quedaba tapado justo detrás del header. Se
+ * aplica a cualquier elemento con id (no solo <section>) para cubrir
+ * también el skip link a #main-content.
+ */
+[id] {
+  scroll-margin-top: 5rem;
+}
+
+/*
+ * Scroll suave para toda navegación por ancla (nav del header, footer,
+ * botones "Probá la demo interactiva", skip link). Respeta
+ * prefers-reduced-motion: quien pidió menos movimiento en el sistema
+ * también lo pidió para el scroll, no solo para las animaciones de
+ * Framer Motion que ya respetan useReducedMotion() en los componentes.
+ */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/*
  * Firma visual: "chip de sensor". Cuadrado con una esquina cortada en
  * diagonal (como el pin de un módulo/PCB) en vez del típico
  * rounded-lg genérico. Se repite en todos los íconos de la página como

@@ -164,7 +164,11 @@ const faqJsonLd = {
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'light',
+  // Bug: estaba fijo en 'light', lo que fuerza controles nativos del
+  // navegador (scrollbars, inputs, etc.) en modo claro incluso con el
+  // toggle de dark mode activado. 'light dark' deja que el navegador siga
+  // la clase .dark real del <html> (ver ThemeToggle / script anti-flash).
+  colorScheme: 'light dark',
   themeColor: '#1A75B3',
 }
 
