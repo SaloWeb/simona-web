@@ -5,13 +5,17 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: 'Inter', 'Inter Fallback';
-  --font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback';
+  --font-sans: var(--font-inter), 'Inter Fallback', sans-serif;
+  --font-mono: var(--font-jetbrains-mono), 'JetBrains Mono Fallback', monospace;
   /* Fuente display: geométrica/técnica (no serif elegante) para separar
      h1/h2 del cuerpo de texto — sugiere dato/sensor, no "revista". Se usa
      con moderación: solo headlines y títulos de sección. */
-  --font-display: 'Space Grotesk', 'Space Grotesk Fallback';
+  --font-display: var(--font-space-grotesk), 'Space Grotesk Fallback', sans-serif;
   --color-earth: var(--earth);
+  --color-copper: var(--copper);
+  --color-copper-foreground: var(--copper-foreground);
+  --color-console: var(--console);
+  --color-console-foreground: var(--console-foreground);
   --color-earth-foreground: var(--earth-foreground);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -55,7 +59,9 @@
 
 :root {
   color-scheme: light;
-  --background: oklch(0.994 0.003 120);
+  /* Sustrato: greige cálido (#F7F5EF), no blanco de laboratorio — evoca
+     papel de cuaderno de campo, no dashboard SaaS genérico. */
+  --background: oklch(0.97 0.008 91.5);
   --foreground: oklch(0.269 0 89.9);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.269 0 89.9);
@@ -66,19 +72,40 @@
   --primary-foreground: oklch(0.99 0.005 240);
   --secondary: oklch(0.965 0.014 145);
   --secondary-foreground: oklch(0.34 0.06 150);
-  --muted: oklch(0.966 0.008 130);
-  --muted-foreground: oklch(0.51 0.02 150);
+  /* Muted con hue corrido hacia tierra (91.5) en vez de gris-verdoso
+     neutro, para que hasta los grises se sientan parte de la misma
+     paleta cálida. */
+  --muted: oklch(0.94 0.012 85);
+  --muted-foreground: oklch(0.48 0.02 80);
   /* Verde de marca #8DC035, oscurecido a L=0.55 para cumplir contraste AA (4.6:1) en texto/botones.
      El verde de marca original (oklch(0.746 0.173 127.8) / #8DC035) se sigue usando tal cual
      para fondos con tinte, íconos grandes y el logo. */
   --accent: oklch(0.5 0.173 127.8);
   --accent-foreground: oklch(0.99 0.005 240);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.906 0.012 140);
-  --input: oklch(0.906 0.012 140);
+  --border: oklch(0.89 0.014 85);
+  --input: oklch(0.89 0.014 85);
   --ring: oklch(0.543 0.126 244.8);
+  /* Tierra: #602f03, oscurecido y saturado — deja de ser un tinte al 5%
+     y pasa a usarse como color ESTRUCTURAL (footer, panel del Nodo,
+     secciones oscuras), como el sustrato real que sostiene la planta
+     del logo. */
   --earth: oklch(0.363 0.088 54.3);
   --earth-foreground: oklch(0.98 0.01 80);
+  /* Cobre: color de "traza de circuito" (#B9793E). Es el riesgo estético
+     del sistema — se usa SOLO para líneas finas, bordes de 1-2px y el
+     motivo de traza del Nodo SIMONA. Nunca como fondo grande. */
+  --copper: oklch(0.632 0.11 61.3);
+  --copper-foreground: oklch(0.99 0.005 80);
+  /*
+   * Consola: marrón-grafito oscuro FIJO, no se redefine en .dark.
+   * El Nodo SIMONA representa un panel de hardware físico, no chrome de
+   * la interfaz — no tiene sentido que "cambie de color" al tocar el
+   * toggle de tema, igual que un router no se pone blanco si el sitio
+   * que lo describe pasa a modo claro.
+   */
+  --console: oklch(0.24 0.035 54.3);
+  --console-foreground: oklch(0.94 0.015 75);
   --chart-1: oklch(0.543 0.126 244.8);
   --chart-2: oklch(0.55 0.173 127.8);
   --chart-3: oklch(0.363 0.088 54.3);
@@ -131,6 +158,8 @@
   --chart-5: oklch(0.68 0.01 240);
   --earth: oklch(0.58 0.09 54.3);
   --earth-foreground: oklch(0.16 0.02 54.3);
+  --copper: oklch(0.737 0.107 63.9);
+  --copper-foreground: oklch(0.16 0.03 63.9);
   --sidebar: oklch(0.205 0.006 240);
   --sidebar-foreground: oklch(0.96 0.004 240);
   --sidebar-primary: oklch(0.72 0.11 244.8);
@@ -175,6 +204,8 @@
     --chart-5: oklch(0.68 0.01 240);
     --earth: oklch(0.58 0.09 54.3);
     --earth-foreground: oklch(0.16 0.02 54.3);
+    --copper: oklch(0.737 0.107 63.9);
+    --copper-foreground: oklch(0.16 0.03 63.9);
     --sidebar: oklch(0.205 0.006 240);
     --sidebar-foreground: oklch(0.96 0.004 240);
     --sidebar-primary: oklch(0.72 0.11 244.8);
@@ -192,35 +223,6 @@
   }
   body {
     @apply bg-background text-foreground;
-  }
-}
-
-/*
- * Bug: el header queda "sticky top-0" con 64px de alto (h-16), pero
- * ninguna sección con id (las que apuntan los links del nav, el footer y
- * el skip link) tenía scroll-margin-top. Resultado: al navegar por ancla,
- * el título de la sección quedaba tapado justo detrás del header. Se
- * aplica a cualquier elemento con id (no solo <section>) para cubrir
- * también el skip link a #main-content.
- */
-[id] {
-  scroll-margin-top: 5rem;
-}
-
-/*
- * Scroll suave para toda navegación por ancla (nav del header, footer,
- * botones "Probá la demo interactiva", skip link). Respeta
- * prefers-reduced-motion: quien pidió menos movimiento en el sistema
- * también lo pidió para el scroll, no solo para las animaciones de
- * Framer Motion que ya respetan useReducedMotion() en los componentes.
- */
-html {
-  scroll-behavior: smooth;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
   }
 }
 
@@ -263,4 +265,49 @@ html {
     opacity: 1 !important;
     transform: none !important;
   }
+}
+
+/*
+ * Marco de traza de PCB: variante del "icon-chip" llevada a un panel
+ * completo. Corta las 4 esquinas en vez de solo una, como el conector
+ * de un módulo electrónico. Se usa exclusivamente en el "Nodo SIMONA"
+ * (elemento firma del hero) para que se distinga de cualquier Card
+ * genérica de shadcn.
+ */
+.trace-panel {
+  clip-path: polygon(
+    14px 0,
+    100% 0,
+    100% calc(100% - 14px),
+    calc(100% - 14px) 100%,
+    0 100%,
+    0 14px
+  );
+}
+
+/*
+ * Lecturas tipo consola de sensor real: números tabulares, tracking
+ * negativo para que se sientan "instrumentales" en vez de decorativos.
+ * Es la pieza central de la identidad tipográfica (JetBrains Mono deja
+ * de ser solo un caption chico).
+ */
+.font-readout {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  font-feature-settings: "tnum" 1;
+}
+
+/*
+ * Textura de sustrato: grilla de puntos color cobre a opacidad mínima,
+ * para paneles sobre fondo tierra (variante del section-texture existente
+ * pero con el tono de traza en vez del foreground plano).
+ */
+.trace-texture {
+  background-image: radial-gradient(
+    circle,
+    color-mix(in oklch, var(--copper) 35%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 16px 16px;
 }

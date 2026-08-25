@@ -3,11 +3,18 @@ import type { Metadata, Viewport } from 'next'
 import { Inter, JetBrains_Mono, Space_Grotesk } from 'next/font/google'
 import './globals.css'
 
-const _inter = Inter({ subsets: ['latin'] })
-const _jetbrainsMono = JetBrains_Mono({ subsets: ['latin'] })
+const _inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const _jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains-mono',
+})
 // Fuente display para h1/h2 — geométrica y técnica, no la Inter del cuerpo.
 // Ver nota en globals.css (--font-display).
-const _spaceGrotesk = Space_Grotesk({ subsets: ['latin'], weight: ['500', '600', '700'] })
+const _spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  weight: ['500', '600', '700'],
+  variable: '--font-space-grotesk',
+})
 
 const SITE_URL = 'https://simona-web.vercel.app'
 const SITE_TITLE = 'SIMONA AgTech | Monitoreo y riego automático para el agro argentino'
@@ -164,11 +171,7 @@ const faqJsonLd = {
 }
 
 export const viewport: Viewport = {
-  // Bug: estaba fijo en 'light', lo que fuerza controles nativos del
-  // navegador (scrollbars, inputs, etc.) en modo claro incluso con el
-  // toggle de dark mode activado. 'light dark' deja que el navegador siga
-  // la clase .dark real del <html> (ver ThemeToggle / script anti-flash).
-  colorScheme: 'light dark',
+  colorScheme: 'light',
   themeColor: '#1A75B3',
 }
 
@@ -178,7 +181,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es" className="bg-background" suppressHydrationWarning>
+    <html
+      lang="es"
+      className={`bg-background ${_inter.variable} ${_jetbrainsMono.variable} ${_spaceGrotesk.variable}`}
+      suppressHydrationWarning
+    >
       <body className="antialiased font-sans">
         {/*
           Aplica el tema guardado (o el del sistema) ANTES de la primera

@@ -41,6 +41,16 @@ const toneClasses = {
   accent: "bg-accent/15 text-accent",
 }
 
+// Callback deliberado al footer del Nodo SIMONA del hero ("192.168.4.1 ·
+// sin internet"): mismas etiquetas font-readout/copper, mismo divisor,
+// para que el bloque de stats se sienta parte del mismo instrumento en
+// vez de una tabla de números genérica.
+const stats = [
+  { k: "Sensores", v: "4" },
+  { k: "Internet", v: "0" },
+  { k: "Cánones", v: "$0" },
+]
+
 export function AboutSection() {
   return (
     <section
@@ -55,16 +65,23 @@ export function AboutSection() {
         />
 
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-          <Card className="border-earth/25 bg-earth/[0.06] shadow-sm">
-            <Image
-              src="/images/historia-huerta.jpg"
-              alt="Persona trabajando de cerca en un cultivo de una huerta"
-              width={678}
-              height={452}
-              sizes="(min-width: 1024px) 560px, 100vw"
-              loading="lazy"
-              className="aspect-[16/10] w-full object-cover"
-            />
+          <Card className="overflow-hidden border-earth/25 bg-earth/[0.06] shadow-sm">
+            <div className="relative">
+              <Image
+                src="/images/historia-huerta.jpg"
+                alt="Persona trabajando de cerca en un cultivo de una huerta"
+                width={678}
+                height={452}
+                sizes="(min-width: 1024px) 560px, 100vw"
+                loading="lazy"
+                className="aspect-[16/10] w-full object-cover"
+              />
+              {/* Traza de cobre en el borde inferior de la foto: mismo
+                  motivo de "instrumento" que separa el header del cuerpo
+                  de la página, en miniatura, para anclar la card al
+                  sistema de diseño general. */}
+              <div className="absolute inset-x-0 bottom-0 h-[2px] bg-copper/60" />
+            </div>
             <CardHeader>
               <Badge
                 variant="outline"
@@ -86,17 +103,13 @@ export function AboutSection() {
                 recursos y facilitar la toma de decisiones: esa es la idea
                 que dio origen a SIMONA.
               </p>
-              <dl className="grid grid-cols-3 gap-4 border-t border-earth/20 pt-4">
-                {[
-                  { k: "Sensores", v: "4" },
-                  { k: "Internet", v: "0" },
-                  { k: "Cánones", v: "$0" },
-                ].map((stat) => (
+              <dl className="grid grid-cols-3 gap-4 border-t border-copper/25 pt-4">
+                {stats.map((stat) => (
                   <div key={stat.k} className="flex flex-col">
-                    <dd className="font-mono text-2xl font-semibold text-earth">
+                    <dd className="font-readout text-2xl font-semibold text-earth">
                       {stat.v}
                     </dd>
-                    <dt className="font-mono text-[10px] uppercase tracking-wide text-muted-foreground">
+                    <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-copper">
                       {stat.k}
                     </dt>
                   </div>
@@ -115,6 +128,12 @@ export function AboutSection() {
                     <pillar.icon className="size-5" aria-hidden="true" />
                   </span>
                   <CardTitle>{pillar.title}</CardTitle>
+                  {/* Micro-divisor cobre: repite el gesto del guion bajo el
+                      eyebrow de SectionHeading a escala de card individual. */}
+                  <span
+                    aria-hidden="true"
+                    className="mt-1 mb-1.5 block h-px w-6 bg-copper/50"
+                  />
                   <CardDescription className="leading-relaxed">
                     {pillar.description}
                   </CardDescription>

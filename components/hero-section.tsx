@@ -7,6 +7,7 @@ import { CircleCheck } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { SensorNode } from "@/components/sensor-node"
 
 const valueProps = ["Sin internet", "Pago único, sin cánones", "Plug & Play"]
 
@@ -21,9 +22,23 @@ export function HeroSection() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden border-b border-border bg-secondary/40"
+      className="relative overflow-hidden border-b border-border bg-background"
     >
-      <div className="mx-auto grid w-full max-w-7xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:py-24">
+      {/* Foto real de vivero como textura de fondo, no como protagonista:
+          ancla el panel de datos en un contexto real sin competir con él. */}
+      <div className="pointer-events-none absolute inset-0">
+        <Image
+          src="/images/hero-huerta.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-[0.07]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
+      </div>
+
+      <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:py-24">
         <div className="flex flex-col gap-5">
           <motion.span
             {...fadeUp(0)}
@@ -34,9 +49,9 @@ export function HeroSection() {
 
           <motion.h1
             {...fadeUp(0.08)}
-            className="font-display max-w-xl text-4xl font-semibold leading-[1.05] tracking-tight text-balance text-foreground sm:text-5xl"
+            className="font-display max-w-xl text-4xl font-semibold leading-[1.03] tracking-tight text-balance text-foreground sm:text-5xl lg:text-[3.4rem]"
           >
-            Riego automático e inteligente para tu huerta o vivero.
+            Del dato de tu suelo al riego, sin pasar por internet.
           </motion.h1>
 
           <motion.p
@@ -95,29 +110,9 @@ export function HeroSection() {
           initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-          className="relative mx-auto flex w-full max-w-sm items-center justify-center lg:mx-0 lg:ml-auto"
+          className="mx-auto flex w-full max-w-sm items-center justify-center lg:mx-0 lg:ml-auto"
         >
-          <div className="absolute inset-x-6 top-6 -z-10 aspect-[16/10] overflow-hidden rounded-2xl border border-border shadow-sm lg:inset-x-10">
-            <Image
-              src="/images/hero-huerta.jpg"
-              alt="Vivero con plantines bajo media sombra, el tipo de cultivo que monitorea SIMONA"
-              fill
-              priority
-              sizes="(min-width: 1024px) 480px, (min-width: 640px) 600px, 100vw"
-              className="object-cover"
-            />
-          </div>
-          <div className="relative mt-24 w-[240px] overflow-hidden rounded-[2rem] border border-border bg-card shadow-xl sm:w-[260px]">
-            <div className="aspect-[9/19]">
-              <Image
-                src="/images/screenshots/app-perfil.jpg"
-                alt="Pantalla de la app SIMONA: elegir un perfil de cultivo (paso 1 de 3)"
-                width={720}
-                height={1480}
-                className="h-full w-full object-cover object-top"
-              />
-            </div>
-          </div>
+          <SensorNode />
         </motion.div>
       </div>
     </section>

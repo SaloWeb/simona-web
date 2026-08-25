@@ -220,7 +220,13 @@ export function AiSection() {
                 <Wifi className="size-5" aria-hidden="true" />
               </span>
               <CardTitle>Red 1 — WiFi local</CardTitle>
-              <CardDescription className="font-mono text-[11px] uppercase tracking-wide text-primary">
+              {/* Mismo dato que el Nodo del hero, Hardware y el
+                  simulador: font-readout + cobre en vez de primary, para
+                  que las 4 apariciones de "192.168.4.1" se lean como el
+                  mismo instrumento repetido. El resto de la card
+                  conserva el azul (identidad de "Red 1" dentro del
+                  diagrama de 2 redes). */}
+              <CardDescription className="font-readout text-[11px] uppercase tracking-wide text-copper">
                 ESP32 Access Point · 192.168.4.1
               </CardDescription>
             </CardHeader>

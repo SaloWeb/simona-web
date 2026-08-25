@@ -1,9 +1,9 @@
 import { FileJson, Gauge, SlidersHorizontal } from "lucide-react"
-import Image from "next/image"
 
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { SectionHeading } from "@/components/section-heading"
+import { AppMockup } from "@/components/app-mockup"
 
 const highlights = [
   {
@@ -48,13 +48,7 @@ export function ProfilesSection() {
         <div className="grid items-center gap-12 lg:grid-cols-[auto_1fr] lg:gap-16">
           <div className="flex justify-center lg:justify-start">
             <div className="aspect-[9/19] w-full max-w-[280px] overflow-hidden rounded-3xl border-4 border-slate-800 bg-slate-100 shadow-xl">
-              <Image
-                src="/images/screenshots/app-dashboard.jpg"
-                alt="Pantalla de la app SIMONA mostrando el gauge de humedad del suelo con las bandas de rango por perfil de cultivo"
-                width={720}
-                height={1489}
-                className="h-full w-full object-cover object-top"
-              />
+              <AppMockup variant="rangos" />
             </div>
           </div>
 

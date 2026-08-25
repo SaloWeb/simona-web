@@ -111,7 +111,7 @@ export function ContactSection() {
               <li key={a.title}>
                 <Card className="h-full border-earth/25 bg-earth/[0.05]">
                   <CardContent className="flex items-start gap-4">
-                    <span className="icon-chip flex size-10 shrink-0 items-center justify-center bg-earth/10 text-earth">
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-earth/10 text-earth">
                       <a.icon className="size-5" aria-hidden="true" />
                     </span>
                     <div className="flex flex-col gap-1">

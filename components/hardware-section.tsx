@@ -75,7 +75,10 @@ export function HardwareSection() {
           description="Una sola caja, cuatro sensores agronómicos y un relé que actúa. Sin servidores, sin suscripciones y sin dependencia de la señal del campo."
         />
 
-        <div className="relative overflow-hidden rounded-2xl border border-border">
+        {/* trace-panel: mismo recorte de 4 esquinas que el Nodo del hero,
+            para que esta sección —el hardware físico en sí— comparta la
+            firma visual del panel que lo representa ahí arriba. */}
+        <div className="trace-panel relative overflow-hidden border border-copper/30">
           <Image
             src="/images/vivero-plantines.jpg"
             alt="Huerta urbana en macetas y neumáticos reciclados, con lechugas y aromáticas"
@@ -93,44 +96,56 @@ export function HardwareSection() {
           </div>
         </div>
 
+        {/*
+          Regla de color del sistema: el cobre (traza de PCB) se reserva
+          para hardware/circuito físico, a diferencia del verde de marca
+          que en el resto del sitio representa cultivo/software. Por eso
+          los chips de ícono y las etiquetas "spec" de este grid pasan de
+          accent (verde) a copper — es la sección que más literalmente
+          es "circuito", así que es donde ese acento gana sentido.
+        */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {hardware.map((item) =>
             item.featured ? (
               <Card
                 key={item.name}
-                className="h-full border-primary/30 bg-primary/[0.05] shadow-sm md:col-span-2 lg:col-span-2"
+                className="h-full border-copper/40 bg-console shadow-sm md:col-span-2 lg:col-span-2"
               >
                 <CardHeader>
                   <div className="flex items-center gap-3">
-                    <span className="icon-chip flex size-12 items-center justify-center bg-primary text-primary-foreground">
+                    <span className="icon-chip flex size-12 items-center justify-center bg-copper text-copper-foreground">
                       <item.icon className="size-6" aria-hidden="true" />
                     </span>
                     <Badge
                       variant="outline"
-                      className="w-fit gap-1.5 border-primary/40 bg-card text-primary"
+                      className="w-fit gap-1.5 border-copper/40 bg-console text-console-foreground"
                     >
                       Núcleo del sistema
                     </Badge>
                   </div>
-                  <CardTitle className="text-balance text-xl">
+                  <CardTitle className="text-balance text-xl text-console-foreground">
                     {item.name}
                   </CardTitle>
-                  <CardDescription className="font-mono text-[11px] uppercase tracking-wide text-primary">
+                  {/* Mismo tratamiento font-readout que la línea
+                      "192.168.4.1 · sin internet" del Nodo del hero: es
+                      literalmente la misma IP, así que se lee como el
+                      mismo instrumento visto de nuevo. */}
+                  <CardDescription className="font-readout text-[11px] uppercase tracking-wide text-copper">
                     {item.spec}
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                <CardContent className="max-w-2xl text-sm leading-relaxed text-console-foreground/70">
                   {item.description}
                 </CardContent>
               </Card>
             ) : (
               <Card key={item.name} className="h-full shadow-sm">
                 <CardHeader>
-                  <span className="icon-chip flex size-10 items-center justify-center bg-accent/15 text-accent">
+                  <span className="icon-chip flex size-10 items-center justify-center border border-copper/30 bg-copper/10 text-copper">
                     <item.icon className="size-5" aria-hidden="true" />
                   </span>
                   <CardTitle className="text-balance">{item.name}</CardTitle>
-                  <CardDescription className="font-mono text-[11px] uppercase tracking-wide text-accent">
+                  <CardDescription className="font-mono text-[11px] uppercase tracking-wide text-copper">
                     {item.spec}
                   </CardDescription>
                 </CardHeader>
@@ -147,6 +162,8 @@ export function HardwareSection() {
             Ahora cierra el grid como una card más (con estilo punteado
             para diferenciarla del hardware actual), donde tiene contexto:
             aparece justo después de todo el kit que sí existe hoy.
+            Mantiene el verde de marca (accent) en vez de cobre: todavía
+            no es hardware real, es roadmap — el color marca esa distinción.
           */}
           <Card className="h-full border-dashed border-accent/40 bg-accent/[0.04] shadow-none">
             <CardHeader>

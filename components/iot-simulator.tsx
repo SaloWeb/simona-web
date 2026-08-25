@@ -189,7 +189,14 @@ export function IotSimulator() {
                     local
                   </CardDescription>
                 </div>
-                <Badge variant="outline" className="font-mono text-[10px]">
+                {/* Mismo dato ("192.168.4.1") que el footer del Nodo del
+                    hero y el spec del ESP32 en Hardware: font-readout +
+                    cobre para que se lea como el mismo instrumento, no
+                    un badge distinto. */}
+                <Badge
+                  variant="outline"
+                  className="font-readout border-copper/40 bg-copper/10 text-[10px] text-copper"
+                >
                   ESP32 · AP 192.168.4.1
                 </Badge>
               </div>
@@ -209,8 +216,11 @@ export function IotSimulator() {
                         htmlFor={`sim-${r.key}`}
                         className="flex items-center gap-2 text-sm font-medium text-foreground"
                       >
+                        {/* Cobre: son literalmente los mismos sensores
+                            físicos del grid de Hardware, acá en su
+                            versión "en vivo". */}
                         <r.icon
-                          className="size-4 text-muted-foreground"
+                          className="size-4 text-copper"
                           aria-hidden="true"
                         />
                         {r.label}

@@ -49,7 +49,7 @@ export function SiteHeader() {
   }, [])
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/80 bg-background/85 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-copper/30 bg-background/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <a href="#top" className="flex shrink-0 items-center gap-3">
           <span className="flex size-9 items-center justify-center">
@@ -76,8 +76,8 @@ export function SiteHeader() {
               href={link.href}
               aria-current={activeHref === link.href ? "true" : undefined}
               className={cn(
-                "shrink-0 rounded-md px-2 py-2 text-[13px] text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground",
-                activeHref === link.href && "bg-secondary text-foreground",
+                "shrink-0 border-b-2 border-transparent px-2 py-2 font-mono text-[12px] uppercase tracking-[0.06em] text-muted-foreground transition-colors hover:text-foreground",
+                activeHref === link.href && "border-copper text-foreground",
               )}
             >
               {link.label}
