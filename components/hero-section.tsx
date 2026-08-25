@@ -7,7 +7,7 @@ import { CircleCheck } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { SensorNode } from "@/components/sensor-node"
+import { AppMockup } from "@/components/app-mockup"
 
 const valueProps = ["Sin internet", "Pago único, sin cánones", "Plug & Play"]
 
@@ -112,7 +112,9 @@ export function HeroSection() {
           transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
           className="mx-auto flex w-full max-w-sm items-center justify-center lg:mx-0 lg:ml-auto"
         >
-          <SensorNode />
+          <div className="aspect-[9/19] w-full max-w-[280px] overflow-hidden rounded-3xl border-4 border-slate-800 bg-slate-100 shadow-xl">
+            <AppMockup variant="perfiles" />
+          </div>
         </motion.div>
       </div>
     </section>
