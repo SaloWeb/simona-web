@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { Compass, Mountain, Sprout, Target } from "lucide-react"
+import { Compass, MapPin, Sprout, Target } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
 import {
@@ -17,21 +17,21 @@ const pillars = [
     title: "Misión",
     tone: "primary" as const,
     description:
-      "Mejorar la productividad de las pymes agrícolas mediante tecnología accesible que optimice recursos como el agua y la energía.",
+      "Ayudar a las pymes agrícolas del Oeste del GBA a producir mejor, cuidando el agua y la energía con una tecnología que cualquiera puede instalar y usar.",
   },
   {
     icon: Compass,
     title: "Visión",
     tone: "earth" as const,
     description:
-      "Ser la solución referente en la digitalización del agro argentino, promoviendo una gestión eficiente y sostenible de cada cultivo.",
+      "Ser la referencia en monitoreo agrícola inteligente para el agro argentino, empezando por transformar la gestión de los cultivos en nuestra propia zona.",
   },
   {
     icon: Sprout,
     title: "Valores",
     tone: "accent" as const,
     description:
-      "Simplicidad operativa (Plug & Play), compromiso real con el productor y eficiencia con sostenibilidad en cada decisión de diseño.",
+      "Hacemos las cosas simples (Plug & Play), estamos cerca del productor y cuidamos los recursos en cada decisión de diseño que tomamos.",
   },
 ]
 
@@ -45,13 +45,13 @@ export function AboutSection() {
   return (
     <section
       id="sobre-nosotros"
-      className="border-b border-border bg-secondary/40 py-16 lg:py-24"
+      className="section-texture border-b border-border bg-secondary/40 py-16 lg:py-24"
     >
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Sobre SIMONA"
           title="Una necesidad concreta, vista de cerca."
-          description="Nuestra empresa surge a partir de una experiencia cercana con el sector agrícola y del reconocimiento de una necesidad concreta: mejorar la gestión y el monitoreo de los cultivos."
+          description="Vimos de cerca un problema que se repite en las quintas y campos del Oeste del GBA: monitorear los cultivos a mano lleva tiempo y margen de error. De ahí nació SIMONA."
         />
 
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
@@ -70,14 +70,14 @@ export function AboutSection() {
                 variant="outline"
                 className="w-fit gap-1.5 border-earth/30 bg-card text-earth"
               >
-                <Mountain className="size-3.5" aria-hidden="true" />
-                Inspirado en los campos de Jujuy
+                <MapPin className="size-3.5" aria-hidden="true" />
+                Nacido en el Oeste del GBA
               </Badge>
               <CardTitle className="text-2xl">Historia</CardTitle>
               <CardDescription className="leading-relaxed">
-                El vínculo con el trabajo rural, transmitido a través de la
-                experiencia de un familiar en los campos de Jujuy, nos
-                permitió comprender los desafíos cotidianos del productor.
+                El vínculo con el trabajo rural, que conocimos de cerca junto
+                a productores de Morón y el Oeste del GBA, nos permitió
+                entender los desafíos cotidianos de quien cultiva la tierra.
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-4 text-sm leading-relaxed text-muted-foreground">

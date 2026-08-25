@@ -10,13 +10,39 @@ import { Button } from "@/components/ui/button"
  * pero no había forma de alcanzarlos desde la UI. Este switch lee/escribe
  * la preferencia en localStorage bajo la misma clave ("simona-theme") que
  * ya usa el script anti-flash de layout.tsx, así ambos quedan en sync.
+ *
+ * Nota: antes el botón se pintaba invisible + disabled hasta que un
+ * useEffect confirmaba el tema post-mount. Eso dejaba una ventana real
+ * (más larga en equipos lentos) donde un click no hacía nada porque el
+ * botón ni siquiera era clickeable. Ahora el estado inicial se lee de
+ * forma sincrónica en el primer render (mismo criterio que el script
+ * anti-flash: localStorage -> prefers-color-scheme -> clase ya presente
+ * en <html>), así el botón es interactivo desde el primer pintado.
  */
-export function ThemeToggle() {
-  const [isDark, setIsDark] = React.useState(false)
-  const [mounted, setMounted] = React.useState(false)
+function readInitialIsDark(): boolean {
+  if (typeof document === "undefined") return false
+  try {
+    const stored = localStorage.getItem("simona-theme")
+    if (stored) return stored === "dark"
+  } catch {
+    // localStorage puede fallar en modo privado o estar bloqueado por
+    // política del equipo — seguimos con el resto de las señales.
+  }
+  if (document.documentElement.classList.contains("dark")) return true
+  try {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+  } catch {
+    return false
+  }
+}
 
+export function ThemeToggle() {
+  const [isDark, setIsDark] = React.useState<boolean>(readInitialIsDark)
+
+  // Por si el script anti-flash de layout.tsx decidió algo distinto a lo
+  // que este componente calculó en su propio render inicial (mismatch de
+  // hidratación), sincronizamos una vez montado sin bloquear el click.
   React.useEffect(() => {
-    setMounted(true)
     setIsDark(document.documentElement.classList.contains("dark"))
   }, [])
 
@@ -32,24 +58,9 @@ export function ThemeToggle() {
     }
   }
 
-  // Evita un ícono "incorrecto" por un instante antes de hidratar: se
-  // pinta vacío hasta confirmar el tema real leído del DOM.
-  if (!mounted) {
-    return (
-      <Button
-        variant="outline"
-        size="icon"
-        aria-label="Cambiar tema"
-        disabled
-        className="opacity-0"
-      >
-        <Sun />
-      </Button>
-    )
-  }
-
   return (
     <Button
+      type="button"
       variant="outline"
       size="icon"
       onClick={toggle}

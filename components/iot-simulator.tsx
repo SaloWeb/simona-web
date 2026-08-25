@@ -163,7 +163,7 @@ export function IotSimulator() {
   return (
     <section
       id="simulador"
-      className="border-b border-border bg-secondary/40 py-16 lg:py-24"
+      className="section-texture border-b border-border bg-secondary/40 py-16 lg:py-24"
     >
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
@@ -251,6 +251,7 @@ export function IotSimulator() {
                         <Button
                           variant="outline"
                           size="icon-sm"
+                          className="size-11 sm:size-7"
                           disabled={r.value <= r.min}
                           onClick={() => {
                             trackFirstInteraction()
@@ -276,6 +277,7 @@ export function IotSimulator() {
                         <Button
                           variant="outline"
                           size="icon-sm"
+                          className="size-11 sm:size-7"
                           disabled={r.value >= r.max}
                           onClick={() => {
                             trackFirstInteraction()
@@ -445,7 +447,7 @@ export function IotSimulator() {
             <Card>
               <CardHeader>
                 <CardTitle className="text-base">Diagnóstico del nodo</CardTitle>
-                <CardDescription>
+                <CardDescription aria-live="polite">
                   {alerts.length === 0
                     ? "Todas las variables dentro del rango del perfil."
                     : `${alerts.length} variable(s) fuera de rango.`}

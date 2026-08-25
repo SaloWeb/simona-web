@@ -35,5 +35,12 @@
     "overrides": {
       "hono": "4.12.25"
     }
-  }
+  },
+  "browserslist": [
+    "defaults",
+    "> 0.3%",
+    "last 3 versions",
+    "Firefox ESR",
+    "not dead"
+  ]
 }

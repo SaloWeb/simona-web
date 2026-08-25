@@ -193,6 +193,23 @@
   );
 }
 
+/*
+ * Ritmo visual entre secciones (punto 9 del plan): las secciones con tint
+ * (bg-secondary/40) quedaban visualmente casi idénticas al fondo plano
+ * porque el tint es muy sutil por diseño (accesibilidad/contraste). Esta
+ * grilla de puntos de bajísima opacidad les da una textura perceptible sin
+ * tocar la paleta de color ni el contraste de texto. Usa var(--foreground)
+ * vía color-mix, así se adapta solo entre tema claro y oscuro.
+ */
+.section-texture {
+  background-image: radial-gradient(
+    circle,
+    color-mix(in oklch, var(--foreground) 8%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal-fade {
     opacity: 1 !important;

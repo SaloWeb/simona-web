@@ -96,9 +96,10 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contacto" className="border-b border-border py-16 lg:py-24">
+    <section id="contacto" className="bg-foreground py-16 text-background lg:py-24">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 sm:px-6 lg:px-8">
         <SectionHeading
+          tone="inverted"
           eyebrow="Contacto B2B"
           title="Solicitá tu Kit SIMONA"
           description="Contanos sobre tu producción y armamos una propuesta con la cantidad de nodos y perfiles que necesitás. Sin cánones ni cargos por hectárea."
