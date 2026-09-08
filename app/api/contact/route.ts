@@ -1,15 +1,13 @@
 import { NextResponse } from "next/server"
 
-// Mail de destino de todas las consultas del formulario B2B.
-// Se puede sobrescribir con la env var CONTACT_EMAIL en Vercel sin tocar código.
-const CONTACT_EMAIL = process.env.CONTACT_EMAIL || "simona.agtech@gmail.com"
-
-// Resend exige verificar un dominio propio para poder usarlo como "from".
-// Mientras no se verifique un dominio (ej. simona-agtech.com), se usa la
-// dirección de pruebas de Resend, que solo entrega al mail con el que se
-// creó la cuenta de Resend. Si más adelante verifican un dominio, cambiar
-// esta constante por algo como "SIMONA <contacto@simona-agtech.com>".
-const FROM_ADDRESS = "SIMONA Web <onboarding@resend.dev>"
+import {
+  CONTACT_EMAIL,
+  FROM_ADDRESS,
+  createRateLimiter,
+  escapeHtml,
+  getClientIp,
+  isValidEmail,
+} from "@/lib/mail-utils"
 
 interface ContactPayload {
   nombre: string
@@ -25,33 +23,11 @@ interface ContactPayload {
   sitio_web?: string
 }
 
-// Rate limiting en memoria: alcanza para frenar ráfagas de un mismo bot
-// contra este endpoint puntual. No es distribuido (cada instancia
-// serverless tiene su propio Map, y en Vercel una función puede "enfriarse"
-// y perder el estado entre invocaciones), así que no reemplaza un rate
-// limiter real (ej. Upstash/Redis) si el tráfico de abuso crece — pero es
-// gratis, sin dependencias nuevas, y cubre el caso común.
+// Rate limiting en memoria — implementación compartida en lib/mail-utils.ts
+// (ver ahí el porqué de los límites elegidos).
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000 // 10 minutos
 const RATE_LIMIT_MAX_REQUESTS = 5
-const requestLog = new Map<string, number[]>()
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now()
-  const timestamps = (requestLog.get(ip) ?? []).filter(
-    (t) => now - t < RATE_LIMIT_WINDOW_MS,
-  )
-  timestamps.push(now)
-  requestLog.set(ip, timestamps)
-  return timestamps.length > RATE_LIMIT_MAX_REQUESTS
-}
-
-function getClientIp(request: Request): string {
-  // Vercel/proxies estándar: el primer valor de x-forwarded-for es el
-  // cliente original. Si no está presente (dev local), agrupamos todo
-  // bajo una sola clave — no es ideal pero no rompe nada.
-  const forwardedFor = request.headers.get("x-forwarded-for")
-  return forwardedFor?.split(",")[0]?.trim() || "unknown"
-}
+const isRateLimited = createRateLimiter(RATE_LIMIT_WINDOW_MS, RATE_LIMIT_MAX_REQUESTS)
 
 const SEGMENTO_LABELS: Record<string, string> = {
   invernadero: "Invernadero / vivero",
@@ -59,18 +35,6 @@ const SEGMENTO_LABELS: Record<string, string> = {
   escuela: "Escuela técnica",
   municipal: "Proyecto municipal",
   urbana: "Huerta urbana",
-}
-
-function isValidEmail(value: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-}
-
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
 }
 
 export async function POST(request: Request) {

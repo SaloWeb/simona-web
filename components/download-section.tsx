@@ -97,15 +97,43 @@ const steps = [
 ]
 
 export function DownloadSection() {
-  const [notifySent, setNotifySent] = React.useState(false)
+  const [notifyStatus, setNotifyStatus] = React.useState<
+    "idle" | "sending" | "sent" | "error"
+  >("idle")
+  const [notifyError, setNotifyError] = React.useState<string | null>(null)
 
-  function handleNotifySubmit(event: React.FormEvent<HTMLFormElement>) {
+  // Mientras APK_AVAILABLE sea false, este mini-formulario es el único CTA
+  // de conversión real de la sección: pega a /api/notify-apk (mismo patrón
+  // que /api/contact) para no perder el email — antes solo mostraba el
+  // mensaje de éxito sin mandarlo a ningún lado.
+  async function handleNotifySubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    setNotifySent(true)
-    // Mientras APK_AVAILABLE sea false, este mini-formulario es el único
-    // CTA de conversión real de la sección: sirve como proxy del "click de
-    // descarga" hasta que haya un build firmado para publicar.
-    track("APK notify submitted")
+    setNotifyStatus("sending")
+    setNotifyError(null)
+
+    const formData = new FormData(event.currentTarget)
+    const email = String(formData.get("notify-email") ?? "")
+
+    try {
+      const response = await fetch("/api/notify-apk", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      })
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => null)
+        setNotifyError(data?.error ?? "No se pudo registrar tu email. Probá de nuevo.")
+        setNotifyStatus("error")
+        return
+      }
+
+      setNotifyStatus("sent")
+      track("APK notify submitted")
+    } catch {
+      setNotifyError("No se pudo conectar con el servidor. Revisá tu conexión e intentá de nuevo.")
+      setNotifyStatus("error")
+    }
   }
 
   return (
@@ -196,12 +224,12 @@ export function DownloadSection() {
                   {/*
                     Con APK_AVAILABLE en false, esta sección quedaba sin
                     ninguna vía de conversión: el tráfico que llega hasta
-                    acá se perdía. Este mini-formulario (solo email, mismo
-                    patrón mock que Contacto) captura el interés mientras
-                    no está la descarga real.
+                    acá se perdía. Este mini-formulario (solo email, pega a
+                    /api/notify-apk igual que Contacto pega a /api/contact)
+                    captura el interés mientras no está la descarga real.
                   */}
                   <div className="mt-1 border-t border-border pt-4">
-                    {notifySent ? (
+                    {notifyStatus === "sent" ? (
                       <div className="flex items-start gap-3 rounded-lg border border-primary/30 bg-primary/[0.06] p-3.5">
                         <CheckCircle2
                           className="size-4.5 shrink-0 text-primary"
@@ -238,11 +266,20 @@ export function DownloadSection() {
                               type="submit"
                               variant="outline"
                               className="shrink-0"
+                              disabled={notifyStatus === "sending"}
                             >
                               <Send data-icon="inline-start" />
-                              Avisarme
+                              {notifyStatus === "sending" ? "Enviando..." : "Avisarme"}
                             </Button>
                           </div>
+                          {notifyStatus === "error" && notifyError ? (
+                            <p
+                              role="alert"
+                              className="text-xs text-destructive"
+                            >
+                              {notifyError}
+                            </p>
+                          ) : null}
                         </Field>
                       </form>
                     )}
