@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Inter, JetBrains_Mono, Space_Grotesk } from 'next/font/google'
 import './globals.css'
+import { SITE_URL } from '@/lib/site-config'
 
 const _inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const _jetbrainsMono = JetBrains_Mono({
@@ -16,7 +17,6 @@ const _spaceGrotesk = Space_Grotesk({
   variable: '--font-space-grotesk',
 })
 
-const SITE_URL = 'https://simona-web.vercel.app'
 const SITE_TITLE = 'SIMONA AgTech | Monitoreo y riego automático para el agro argentino'
 const SITE_DESCRIPTION =
   'SIMONA: Sistema Inteligente de Monitoreo y Optimización para Negocios Agrícolas. Kit Plug & Play con ESP32, sensores de suelo y riego automático 100% local, sin internet ni cánones por hectárea.'
@@ -171,7 +171,11 @@ const faqJsonLd = {
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'light',
+  // 'light dark' (no solo 'light'): el sitio tiene modo oscuro completo,
+  // así que los controles nativos del navegador (scrollbar, inputs,
+  // selects sin estilo) también deberían poder pintarse oscuros cuando
+  // corresponda, en vez de quedar siempre claros de fondo.
+  colorScheme: 'light dark',
   // Azul real de marca (logo_simona.png), no un azul genérico aproximado.
   themeColor: '#1A6FA8',
 }

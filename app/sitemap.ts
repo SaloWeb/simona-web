@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next"
 
+import { SITE_URL } from "@/lib/site-config"
+
 // Sitio de una sola página: no hay rutas adicionales, pero listamos las
 // anclas de sección como entradas separadas (con la misma URL base) para
 // que un crawler entienda que hay contenido semánticamente distinto ahí,
 // y para que la fecha de última modificación quede asociada al deploy.
-const SITE_URL = "https://simona-web.vercel.app"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date()
@@ -29,6 +30,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
+      url: `${SITE_URL}/#equipo`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
       url: `${SITE_URL}/#solucion`,
       lastModified,
       changeFrequency: "monthly",
@@ -51,6 +58,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: "monthly",
       priority: 0.7,
+    },
+    {
+      url: `${SITE_URL}/#ia`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.6,
     },
     {
       url: `${SITE_URL}/#descargar`,
