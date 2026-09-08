@@ -43,6 +43,10 @@ export function ThemeToggle() {
   // que este componente calculó en su propio render inicial (mismatch de
   // hidratación), sincronizamos una vez montado sin bloquear el click.
   React.useEffect(() => {
+    // Corrección puntual post-mount si el script anti-flash decidió algo
+    // distinto al cálculo síncrono de arriba; no es un patrón recurrente
+    // de "estado derivado en efecto".
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsDark(document.documentElement.classList.contains("dark"))
   }, [])
 

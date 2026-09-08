@@ -78,6 +78,10 @@ export function IotSimulator() {
   // Histéresis: la bomba arranca por debajo del mínimo y corta al alcanzar el máximo.
   const [pumpOn, setPumpOn] = React.useState(false)
   React.useEffect(() => {
+    // La histéresis necesita el pumpOn anterior (no solo el moisture
+    // actual), así que es estado con memoria, no algo derivable en el
+    // render mismo.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPumpOn((prev) => {
       if (moisture < PROFILE.moistureMin) return true
       if (moisture >= PROFILE.moistureMax) return false
@@ -202,7 +206,7 @@ export function IotSimulator() {
               </div>
               <p className="flex items-center gap-1.5 text-xs font-medium text-accent">
                 <MoveDown className="size-3.5 shrink-0" aria-hidden="true" />
-                Arrastrá "Humedad de suelo" por debajo de{" "}
+                Arrastrá &quot;Humedad de suelo&quot; por debajo de{" "}
                 {PROFILE.moistureMin}% y mirá reaccionar la bomba →
               </p>
             </CardHeader>
