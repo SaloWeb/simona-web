@@ -201,7 +201,7 @@ export function AiSection() {
           tone="inverted"
           eyebrow="Inteligencia Agronómica"
           title="Diagnóstico con IA sin perder el control local"
-          description="Aunque tu celular use datos móviles para consultarle a la IA una recomendación, el riego nunca se corta: la lógica de automatización vive en el ESP32, no en el teléfono. SIMONA combina la telemetría local con diagnósticos agronómicos generados por Gemini 2.0 Flash."
+          description="Aunque tu celular use datos móviles para consultarle a la IA una recomendación, el riego nunca se corta: la lógica de automatización vive en el ESP32, no en el teléfono. SIMONA combina la telemetría local con diagnósticos agronómicos generados por Gemini 2.5 Flash."
         />
 
         <div className="rounded-2xl border border-border bg-card px-4 py-8 shadow-sm sm:px-8">
@@ -221,12 +221,12 @@ export function AiSection() {
               </span>
               <CardTitle>Red 1 — WiFi local</CardTitle>
               {/* Mismo dato que el Nodo del hero, Hardware y el
-                  simulador: font-readout + cobre en vez de primary, para
-                  que las 4 apariciones de "192.168.4.1" se lean como el
-                  mismo instrumento repetido. El resto de la card
-                  conserva el azul (identidad de "Red 1" dentro del
-                  diagrama de 2 redes). */}
-              <CardDescription className="font-readout text-[11px] uppercase tracking-wide text-copper">
+                  simulador: font-readout + trace (turquesa del logo) en
+                  vez de primary, para que las 4 apariciones de
+                  "192.168.4.1" se lean como el mismo instrumento
+                  repetido. El resto de la card conserva el azul
+                  (identidad de "Red 1" dentro del diagrama de 2 redes). */}
+              <CardDescription className="font-readout text-[11px] uppercase tracking-wide text-trace">
                 ESP32 Access Point · 192.168.4.1
               </CardDescription>
             </CardHeader>
@@ -262,7 +262,7 @@ export function AiSection() {
               </span>
               <CardTitle>Red 2 — Datos móviles</CardTitle>
               <CardDescription className="font-mono text-[11px] uppercase tracking-wide text-primary">
-                Gemini 2.0 Flash
+                Gemini 2.5 Flash
               </CardDescription>
             </CardHeader>
             <CardContent className="text-sm leading-relaxed text-muted-foreground">

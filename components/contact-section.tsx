@@ -111,7 +111,7 @@ export function ContactSection() {
               <li key={a.title}>
                 <Card className="h-full border-earth/25 bg-earth/[0.05]">
                   <CardContent className="flex items-start gap-4">
-                    <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-earth/10 text-earth">
+                    <span className="icon-chip flex size-10 shrink-0 items-center justify-center bg-earth/10 text-earth">
                       <a.icon className="size-5" aria-hidden="true" />
                     </span>
                     <div className="flex flex-col gap-1">
@@ -158,6 +158,28 @@ export function ContactSection() {
               ) : (
                 <form onSubmit={handleSubmit}>
                   <FieldGroup>
+                    {/*
+                      Honeypot antispam: campo real de <input>, pero oculto
+                      visualmente (no display:none/hidden — algunos bots los
+                      detectan y saltean) y sacado del flujo de tab/lectores
+                      de pantalla. Un humano nunca lo completa; un bot que
+                      rellena todos los inputs del DOM sí. Se valida en
+                      app/api/contact/route.ts.
+                    */}
+                    <div
+                      aria-hidden="true"
+                      className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden"
+                    >
+                      <label htmlFor="sitio_web">No completar este campo</label>
+                      <input
+                        id="sitio_web"
+                        name="sitio_web"
+                        type="text"
+                        tabIndex={-1}
+                        autoComplete="off"
+                      />
+                    </div>
+
                     <div className="grid gap-5 sm:grid-cols-2">
                       <Field>
                         <FieldLabel htmlFor="nombre">

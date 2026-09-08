@@ -19,6 +19,38 @@ interface ContactPayload {
   segmento: string
   nodos?: string
   mensaje?: string
+  // Honeypot: campo invisible para humanos (ver contact-section.tsx).
+  // Si viene con contenido, es casi seguro un bot rellenando todos los
+  // inputs del form sin renderizar el CSS que lo oculta.
+  sitio_web?: string
+}
+
+// Rate limiting en memoria: alcanza para frenar ráfagas de un mismo bot
+// contra este endpoint puntual. No es distribuido (cada instancia
+// serverless tiene su propio Map, y en Vercel una función puede "enfriarse"
+// y perder el estado entre invocaciones), así que no reemplaza un rate
+// limiter real (ej. Upstash/Redis) si el tráfico de abuso crece — pero es
+// gratis, sin dependencias nuevas, y cubre el caso común.
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000 // 10 minutos
+const RATE_LIMIT_MAX_REQUESTS = 5
+const requestLog = new Map<string, number[]>()
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now()
+  const timestamps = (requestLog.get(ip) ?? []).filter(
+    (t) => now - t < RATE_LIMIT_WINDOW_MS,
+  )
+  timestamps.push(now)
+  requestLog.set(ip, timestamps)
+  return timestamps.length > RATE_LIMIT_MAX_REQUESTS
+}
+
+function getClientIp(request: Request): string {
+  // Vercel/proxies estándar: el primer valor de x-forwarded-for es el
+  // cliente original. Si no está presente (dev local), agrupamos todo
+  // bajo una sola clave — no es ideal pero no rompe nada.
+  const forwardedFor = request.headers.get("x-forwarded-for")
+  return forwardedFor?.split(",")[0]?.trim() || "unknown"
 }
 
 const SEGMENTO_LABELS: Record<string, string> = {
@@ -51,11 +83,26 @@ export async function POST(request: Request) {
     )
   }
 
+  const clientIp = getClientIp(request)
+  if (isRateLimited(clientIp)) {
+    return NextResponse.json(
+      { error: "Demasiadas solicitudes. Probá de nuevo en unos minutos." },
+      { status: 429 },
+    )
+  }
+
   let body: ContactPayload
   try {
     body = await request.json()
   } catch {
     return NextResponse.json({ error: "Cuerpo de la solicitud inválido." }, { status: 400 })
+  }
+
+  // Honeypot: un humano nunca completa este campo porque el CSS lo oculta.
+  // Respondemos 200 "falso positivo" en vez de 400 para no darle al bot
+  // una señal clara de que fue detectado (así no ajusta y reintenta).
+  if (body.sitio_web) {
+    return NextResponse.json({ ok: true })
   }
 
   const nombre = body.nombre?.trim()

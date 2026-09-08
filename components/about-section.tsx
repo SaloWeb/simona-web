@@ -42,7 +42,7 @@ const toneClasses = {
 }
 
 // Callback deliberado al footer del Nodo SIMONA del hero ("192.168.4.1 ·
-// sin internet"): mismas etiquetas font-readout/copper, mismo divisor,
+// sin internet"): mismas etiquetas font-readout/trace, mismo divisor,
 // para que el bloque de stats se sienta parte del mismo instrumento en
 // vez de una tabla de números genérica.
 const stats = [
@@ -76,11 +76,11 @@ export function AboutSection() {
                 loading="lazy"
                 className="aspect-[16/10] w-full object-cover"
               />
-              {/* Traza de cobre en el borde inferior de la foto: mismo
+              {/* Traza turquesa en el borde inferior de la foto: mismo
                   motivo de "instrumento" que separa el header del cuerpo
                   de la página, en miniatura, para anclar la card al
                   sistema de diseño general. */}
-              <div className="absolute inset-x-0 bottom-0 h-[2px] bg-copper/60" />
+              <div className="absolute inset-x-0 bottom-0 h-[2px] bg-trace/60" />
             </div>
             <CardHeader>
               <Badge
@@ -103,13 +103,13 @@ export function AboutSection() {
                 recursos y facilitar la toma de decisiones: esa es la idea
                 que dio origen a SIMONA.
               </p>
-              <dl className="grid grid-cols-3 gap-4 border-t border-copper/25 pt-4">
+              <dl className="grid grid-cols-3 gap-4 border-t border-trace/25 pt-4">
                 {stats.map((stat) => (
                   <div key={stat.k} className="flex flex-col">
                     <dd className="font-readout text-2xl font-semibold text-earth">
                       {stat.v}
                     </dd>
-                    <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-copper">
+                    <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-trace">
                       {stat.k}
                     </dt>
                   </div>
@@ -128,11 +128,11 @@ export function AboutSection() {
                     <pillar.icon className="size-5" aria-hidden="true" />
                   </span>
                   <CardTitle>{pillar.title}</CardTitle>
-                  {/* Micro-divisor cobre: repite el gesto del guion bajo el
+                  {/* Micro-divisor trace: repite el gesto del guión bajo el
                       eyebrow de SectionHeading a escala de card individual. */}
                   <span
                     aria-hidden="true"
-                    className="mt-1 mb-1.5 block h-px w-6 bg-copper/50"
+                    className="mt-1 mb-1.5 block h-px w-6 bg-trace/50"
                   />
                   <CardDescription className="leading-relaxed">
                     {pillar.description}

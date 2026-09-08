@@ -17,6 +17,7 @@ const columns = [
     links: [
       { href: "#sobre-nosotros", label: "Sobre nosotros" },
       { href: "#sobre-nosotros", label: "Misión y valores" },
+      { href: "#equipo", label: "Equipo" },
       { href: "#comparativa", label: "Análisis competitivo" },
       { href: "#faq", label: "Preguntas frecuentes" },
       { href: "#contacto", label: "Contacto B2B" },
@@ -35,8 +36,22 @@ const columns = [
 
 export function SiteFooter() {
   return (
-    <footer className="bg-secondary/60">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 py-14 sm:px-6 lg:px-8">
+    <footer className="relative overflow-hidden bg-secondary/60">
+      {/*
+        Marca de agua del isotípo (Fase 2 del plan de identidad): el logo
+        no debería vivir solo en el header a 36px. Acá aparece gigante y
+        casi transparente, anclándose a la esquina como una firma de
+        marca ambiental en vez de un elemento más del contenido.
+      */}
+      <Image
+        src="/images/logo-simona.png"
+        alt=""
+        aria-hidden="true"
+        width={520}
+        height={520}
+        className="brand-watermark pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] object-contain sm:-right-16 sm:-top-16"
+      />
+      <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.3fr_2fr]">
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3">

@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "motion/react"
 import { track } from "@vercel/analytics"
 import { CircleCheck } from "lucide-react"
 
+import { SensorNode } from "@/components/sensor-node"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 
@@ -111,15 +112,15 @@ export function HeroSection() {
           transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
           className="mx-auto flex w-full max-w-sm items-center justify-center lg:mx-0 lg:ml-auto"
         >
-          <div className="relative aspect-[9/19] w-full max-w-[280px] overflow-hidden rounded-3xl border-4 border-slate-800 bg-slate-100 shadow-xl">
-            <Image
-              src="/images/app-perfil.jpg"
-              alt="Captura de la app SIMONA: paso 1 de 3, elegir un perfil de cultivo"
-              fill
-              sizes="280px"
-              className="object-cover object-top"
-            />
-          </div>
+          {/*
+            SensorNode (panel de lecturas en vivo) en vez del mockup de
+            celular: es el elemento firma real de la página — About,
+            Hardware, IA y el Simulador ya citan "192.168.4.1" como si
+            fuera el mismo instrumento visto acá arriba. Un teléfono genérico
+            no comunica "esto es hardware real" tan bien como una consola de
+            sensores en vivo.
+          */}
+          <SensorNode />
         </motion.div>
       </div>
     </section>

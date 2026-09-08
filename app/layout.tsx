@@ -172,7 +172,8 @@ const faqJsonLd = {
 
 export const viewport: Viewport = {
   colorScheme: 'light',
-  themeColor: '#1A75B3',
+  // Azul real de marca (logo_simona.png), no un azul genérico aproximado.
+  themeColor: '#1A6FA8',
 }
 
 export default function RootLayout({

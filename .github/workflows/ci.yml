@@ -1,0 +1,32 @@
+name: CI
+
+# Corre en cada push y cada PR: si alguien rompe los tipos o el build de
+# producción sin darse cuenta, esto lo va a marcar en rojo en GitHub antes
+# de que llegue a Vercel.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Chequeo de tipos (tsc)
+        run: npx tsc --noEmit
+
+      - name: Build de producción (next build)
+        run: npm run build

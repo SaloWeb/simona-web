@@ -1,14 +1,14 @@
 import Image from "next/image"
-import {
-  Cpu,
-  Droplet,
-  FlaskConical,
-  Radio,
-  Sun,
-  Thermometer,
-  Zap,
-} from "lucide-react"
 
+import {
+  IconEsp32,
+  IconHumedad,
+  IconLora,
+  IconLuz,
+  IconPh,
+  IconRele,
+  IconTermometro,
+} from "@/components/icons/simona-icons"
 import { Badge } from "@/components/ui/badge"
 import {
   Card,
@@ -19,9 +19,13 @@ import {
 } from "@/components/ui/card"
 import { SectionHeading } from "@/components/section-heading"
 
+// Íconos propios (components/icons/simona-icons.tsx) en vez de
+// lucide-react: dibujados en el mismo lenguaje visual del logo (línea +
+// nodo circular), para que esta grilla —la más "de circuito" de toda la
+// página— se sienta parte del isotipo en vez de pictogramas neutros.
 const hardware = [
   {
-    icon: Cpu,
+    icon: IconEsp32,
     name: "Microcontrolador ESP32",
     spec: "WiFi Access Point · 192.168.4.1",
     description:
@@ -29,35 +33,35 @@ const hardware = [
     featured: true,
   },
   {
-    icon: Droplet,
+    icon: IconHumedad,
     name: "Sensor de Humedad de Suelo",
     spec: "Lectura continua · variable principal de riego",
     description:
       "Determina el contenido de agua del suelo en tiempo real. Es la variable que dispara la lógica de histéresis del riego automático.",
   },
   {
-    icon: Thermometer,
+    icon: IconTermometro,
     name: "Sensor DHT11",
     spec: "Temperatura + humedad ambiente",
     description:
       "Monitorea las condiciones del aire dentro del invernadero o a cielo abierto para contextualizar el riego.",
   },
   {
-    icon: FlaskConical,
+    icon: IconPh,
     name: "Sensor de pH de Suelo",
     spec: "Medición manual por muestra",
     description:
       "Se usa por muestra (extracto de suelo con agua destilada) en lugar de quedar enterrado de forma continua, para una lectura más precisa y sin desgaste del electrodo. Detecta acidez o alcalinidad fuera de rango para el perfil de cultivo seleccionado.",
   },
   {
-    icon: Sun,
+    icon: IconLuz,
     name: "Sensor de Luz LDR",
     spec: "Escala 0 – 950 lux",
     description:
       "Mide la radiación disponible y evita riegos en los picos de insolación donde el agua se evapora sin llegar a la raíz.",
   },
   {
-    icon: Zap,
+    icon: IconRele,
     name: "Módulo Relé de Riego",
     spec: "Accionamiento electromecánico",
     description:
@@ -78,7 +82,7 @@ export function HardwareSection() {
         {/* trace-panel: mismo recorte de 4 esquinas que el Nodo del hero,
             para que esta sección —el hardware físico en sí— comparta la
             firma visual del panel que lo representa ahí arriba. */}
-        <div className="trace-panel relative overflow-hidden border border-copper/30">
+        <div className="trace-panel relative overflow-hidden border border-trace/30">
           <Image
             src="/images/vivero-plantines.jpg"
             alt="Huerta urbana en macetas y neumáticos reciclados, con lechugas y aromáticas"
@@ -97,28 +101,29 @@ export function HardwareSection() {
         </div>
 
         {/*
-          Regla de color del sistema: el cobre (traza de PCB) se reserva
-          para hardware/circuito físico, a diferencia del verde de marca
-          que en el resto del sitio representa cultivo/software. Por eso
-          los chips de ícono y las etiquetas "spec" de este grid pasan de
-          accent (verde) a copper — es la sección que más literalmente
-          es "circuito", así que es donde ese acento gana sentido.
+          Regla de color del sistema: el turquesa "trace" (leído de los
+          nodos de circuito del logo real) se reserva para hardware/
+          circuito físico, a diferencia del verde de marca que en el
+          resto del sitio representa cultivo/software. Por eso los chips
+          de ícono y las etiquetas "spec" de este grid pasan de accent
+          (verde) a trace — es la sección que más literalmente es
+          "circuito", así que es donde ese acento gana sentido.
         */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {hardware.map((item) =>
             item.featured ? (
               <Card
                 key={item.name}
-                className="h-full border-copper/40 bg-console shadow-sm md:col-span-2 lg:col-span-2"
+                className="h-full border-trace/40 bg-console shadow-sm md:col-span-2 lg:col-span-2"
               >
                 <CardHeader>
                   <div className="flex items-center gap-3">
-                    <span className="icon-chip flex size-12 items-center justify-center bg-copper text-copper-foreground">
-                      <item.icon className="size-6" aria-hidden="true" />
+                    <span className="icon-chip flex size-12 items-center justify-center bg-trace text-trace-foreground">
+                      <item.icon className="size-6" />
                     </span>
                     <Badge
                       variant="outline"
-                      className="w-fit gap-1.5 border-copper/40 bg-console text-console-foreground"
+                      className="w-fit gap-1.5 border-trace/40 bg-console text-console-foreground"
                     >
                       Núcleo del sistema
                     </Badge>
@@ -130,7 +135,7 @@ export function HardwareSection() {
                       "192.168.4.1 · sin internet" del Nodo del hero: es
                       literalmente la misma IP, así que se lee como el
                       mismo instrumento visto de nuevo. */}
-                  <CardDescription className="font-readout text-[11px] uppercase tracking-wide text-copper">
+                  <CardDescription className="font-readout text-[11px] uppercase tracking-wide text-trace">
                     {item.spec}
                   </CardDescription>
                 </CardHeader>
@@ -141,11 +146,11 @@ export function HardwareSection() {
             ) : (
               <Card key={item.name} className="h-full shadow-sm">
                 <CardHeader>
-                  <span className="icon-chip flex size-10 items-center justify-center border border-copper/30 bg-copper/10 text-copper">
-                    <item.icon className="size-5" aria-hidden="true" />
+                  <span className="icon-chip flex size-10 items-center justify-center border border-trace/30 bg-trace/10 text-trace">
+                    <item.icon className="size-5" />
                   </span>
                   <CardTitle className="text-balance">{item.name}</CardTitle>
-                  <CardDescription className="font-mono text-[11px] uppercase tracking-wide text-copper">
+                  <CardDescription className="font-mono text-[11px] uppercase tracking-wide text-trace">
                     {item.spec}
                   </CardDescription>
                 </CardHeader>
@@ -162,13 +167,13 @@ export function HardwareSection() {
             Ahora cierra el grid como una card más (con estilo punteado
             para diferenciarla del hardware actual), donde tiene contexto:
             aparece justo después de todo el kit que sí existe hoy.
-            Mantiene el verde de marca (accent) en vez de cobre: todavía
+            Mantiene el verde de marca (accent) en vez de trace: todavía
             no es hardware real, es roadmap — el color marca esa distinción.
           */}
           <Card className="h-full border-dashed border-accent/40 bg-accent/[0.04] shadow-none">
             <CardHeader>
               <span className="icon-chip flex size-10 items-center justify-center bg-accent/15 text-accent">
-                <Radio className="size-5" aria-hidden="true" />
+                <IconLora className="size-5" />
               </span>
               <Badge
                 variant="outline"

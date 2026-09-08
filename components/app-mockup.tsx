@@ -6,11 +6,10 @@ import { Apple, Carrot, Flower2, Leaf, Sprout, Wind } from "lucide-react"
  * dependen de un archivo de imagen, así que nunca se rompen, y quedan
  * 100% en la paleta de marca.
  *
- * Dos variantes para no repetir la misma pantalla en Hero y en Perfiles:
- * - "perfiles": paso 1, elegir el perfil de cultivo (usada en el Hero).
- * - "rangos": paso 2, ajustar los umbrales con sliders (usada en la
- *   sección Perfiles, así cada aparición del teléfono cuenta algo
- *   distinto del producto).
+ * Dos variantes: "perfiles" (paso 1, elegir cultivo) y "rangos" (paso 2,
+ * ajustar umbrales — usada en la sección Perfiles). El Hero ya no usa
+ * ninguna de las dos: ahí vive SensorNode (components/sensor-node.tsx),
+ * el panel de lecturas en vivo que es la firma visual real de la página.
  */
 const mockProfiles = [
   { icon: Leaf, name: "Hoja", range: "40–65 %" },

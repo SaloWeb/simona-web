@@ -56,13 +56,13 @@ export function SensorNode() {
 
   return (
     <div
-      className="trace-panel relative w-full max-w-[280px] border border-copper/40 bg-console p-5 shadow-xl"
+      className="trace-panel relative w-full max-w-[280px] border border-trace/40 bg-console p-5 shadow-xl"
       role="img"
       aria-label="Panel de lecturas en vivo de un nodo SIMONA: humedad, temperatura, luz y pH"
     >
       <div className="trace-texture pointer-events-none absolute inset-0 opacity-40" />
 
-      <div className="relative flex items-center justify-between border-b border-copper/25 pb-3">
+      <div className="relative flex items-center justify-between border-b border-trace/25 pb-3">
         <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-console-foreground/70">
           Nodo #01 · Lechuga
         </span>
@@ -72,7 +72,7 @@ export function SensorNode() {
               "size-2 rounded-full " +
               (pumpActive
                 ? "bg-accent shadow-[0_0_6px_2px] shadow-accent/60"
-                : "bg-copper/70")
+                : "bg-trace/70")
             }
             aria-hidden="true"
           />
@@ -98,7 +98,7 @@ export function SensorNode() {
         ))}
       </dl>
 
-      <p className="relative mt-4 border-t border-copper/25 pt-3 font-mono text-[10px] leading-relaxed text-console-foreground/50">
+      <p className="relative mt-4 border-t border-trace/25 pt-3 font-mono text-[10px] leading-relaxed text-console-foreground/50">
         192.168.4.1 · sin internet
       </p>
     </div>
