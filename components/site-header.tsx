@@ -17,6 +17,7 @@ const navLinks = [
   { href: "#perfiles", label: "Perfiles" },
   { href: "#comparativa", label: "Comparativa" },
   { href: "#simulador", label: "Simulador" },
+  { href: "#ia", label: "IA" },
   { href: "#descargar", label: "App" },
   { href: "#faq", label: "FAQ" },
 ]

@@ -195,7 +195,10 @@ export function AiSection() {
       a mitad del recorrido de scroll en vez de una alternancia más del
       mismo patrón.
     */
-    <section className="border-b border-primary-foreground/10 bg-gradient-to-br from-primary to-primary/85 py-16 lg:py-24">
+    <section
+      id="ia"
+      className="border-b border-primary-foreground/10 bg-gradient-to-br from-primary to-primary/85 py-16 lg:py-24"
+    >
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 sm:px-6 lg:px-8">
         <SectionHeading
           tone="inverted"

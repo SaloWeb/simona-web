@@ -9,6 +9,7 @@ const columns = [
       { href: "#solucion", label: "Kit SIMONA" },
       { href: "#perfiles", label: "Perfiles agronómicos" },
       { href: "#simulador", label: "Simulador IoT" },
+      { href: "#ia", label: "Diagnóstico con IA" },
       { href: "#descargar", label: "App Android v4" },
     ],
   },
