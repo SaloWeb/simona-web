@@ -2,7 +2,7 @@ import Image from "next/image"
 import { Leaf } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Panel, PanelContent, PanelHeader, PanelTitle } from "@/components/panel"
 import {
   Table,
   TableBody,
@@ -96,16 +96,12 @@ export function ComparisonSection() {
         */}
         <div className="flex flex-col gap-4 md:hidden">
           {competitors.map((competitor) => (
-            <Card
+            <Panel
               key={competitor.key}
-              className={
-                competitor.highlight
-                  ? "border-primary/30 bg-primary/[0.05] shadow-sm"
-                  : "shadow-sm"
-              }
+              accent={competitor.highlight ? "primary" : "none"}
             >
-              <CardHeader className="flex-row items-center justify-between gap-3 space-y-0">
-                <CardTitle
+              <PanelHeader className="flex-row items-center justify-between gap-3 space-y-0">
+                <PanelTitle
                   className={
                     competitor.highlight
                       ? "flex items-center gap-1.5 text-primary"
@@ -116,12 +112,12 @@ export function ComparisonSection() {
                     <Leaf className="size-4 shrink-0" aria-hidden="true" />
                   ) : null}
                   {competitor.name}
-                </CardTitle>
+                </PanelTitle>
                 {competitor.highlight ? (
                   <Badge className="shrink-0">SIMONA</Badge>
                 ) : null}
-              </CardHeader>
-              <CardContent>
+              </PanelHeader>
+              <PanelContent>
                 <dl className="flex flex-col gap-3">
                   {criteria.map((row) => (
                     <div
@@ -143,8 +139,8 @@ export function ComparisonSection() {
                     </div>
                   ))}
                 </dl>
-              </CardContent>
-            </Card>
+              </PanelContent>
+            </Panel>
           ))}
         </div>
 

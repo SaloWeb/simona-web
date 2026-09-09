@@ -11,12 +11,12 @@ import {
 } from "@/components/icons/simona-icons"
 import { Badge } from "@/components/ui/badge"
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+  Panel,
+  PanelContent,
+  PanelDescription,
+  PanelHeader,
+  PanelTitle,
+} from "@/components/panel"
 import { SectionHeading } from "@/components/section-heading"
 
 // Íconos propios (components/icons/simona-icons.tsx) en vez de
@@ -112,11 +112,12 @@ export function HardwareSection() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {hardware.map((item) =>
             item.featured ? (
-              <Card
+              <Panel
                 key={item.name}
-                className="h-full border-trace/40 bg-console shadow-sm md:col-span-2 lg:col-span-2"
+                tone="console"
+                className="md:col-span-2 lg:col-span-2"
               >
-                <CardHeader>
+                <PanelHeader>
                   <div className="flex items-center gap-3">
                     <span className="icon-chip flex size-12 items-center justify-center bg-trace text-trace-foreground">
                       <item.icon className="size-6" />
@@ -128,36 +129,36 @@ export function HardwareSection() {
                       Núcleo del sistema
                     </Badge>
                   </div>
-                  <CardTitle className="text-balance text-xl text-console-foreground">
+                  <PanelTitle className="text-balance text-xl text-console-foreground">
                     {item.name}
-                  </CardTitle>
+                  </PanelTitle>
                   {/* Mismo tratamiento font-readout que la línea
                       "192.168.4.1 · sin internet" del Nodo del hero: es
                       literalmente la misma IP, así que se lee como el
                       mismo instrumento visto de nuevo. */}
-                  <CardDescription className="font-readout text-[11px] uppercase tracking-wide text-trace">
+                  <PanelDescription className="font-readout text-[11px] uppercase tracking-wide text-trace">
                     {item.spec}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="max-w-2xl text-sm leading-relaxed text-console-foreground/70">
+                  </PanelDescription>
+                </PanelHeader>
+                <PanelContent className="max-w-2xl text-sm leading-relaxed text-console-foreground/70">
                   {item.description}
-                </CardContent>
-              </Card>
+                </PanelContent>
+              </Panel>
             ) : (
-              <Card key={item.name} className="h-full shadow-sm">
-                <CardHeader>
+              <Panel key={item.name} className="h-full">
+                <PanelHeader>
                   <span className="icon-chip flex size-10 items-center justify-center border border-trace/30 bg-trace/10 text-trace">
                     <item.icon className="size-5" />
                   </span>
-                  <CardTitle className="text-balance">{item.name}</CardTitle>
-                  <CardDescription className="font-mono text-[11px] uppercase tracking-wide text-trace">
+                  <PanelTitle className="text-balance">{item.name}</PanelTitle>
+                  <PanelDescription className="font-mono text-[11px] uppercase tracking-wide text-trace">
                     {item.spec}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="text-sm leading-relaxed text-muted-foreground">
+                  </PanelDescription>
+                </PanelHeader>
+                <PanelContent className="text-sm leading-relaxed text-muted-foreground">
                   {item.description}
-                </CardContent>
-              </Card>
+                </PanelContent>
+              </Panel>
             ),
           )}
 
@@ -170,8 +171,8 @@ export function HardwareSection() {
             Mantiene el verde de marca (accent) en vez de trace: todavía
             no es hardware real, es roadmap — el color marca esa distinción.
           */}
-          <Card className="h-full border-dashed border-accent/40 bg-accent/[0.04] shadow-none">
-            <CardHeader>
+          <Panel accent="accent" className="h-full border-dashed">
+            <PanelHeader>
               <span className="icon-chip flex size-10 items-center justify-center bg-accent/15 text-accent">
                 <IconLora className="size-5" />
               </span>
@@ -181,16 +182,16 @@ export function HardwareSection() {
               >
                 Próximamente
               </Badge>
-              <CardTitle className="text-balance">SIMONA Pro</CardTitle>
-              <CardDescription className="font-mono text-[11px] uppercase tracking-wide text-accent">
+              <PanelTitle className="text-balance">SIMONA Pro</PanelTitle>
+              <PanelDescription className="font-mono text-[11px] uppercase tracking-wide text-accent">
                 Escalabilidad LoRa
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="text-sm leading-relaxed text-muted-foreground">
+              </PanelDescription>
+            </PanelHeader>
+            <PanelContent className="text-sm leading-relaxed text-muted-foreground">
               Una versión pensada para predios más grandes, con alcance
               extendido entre kits sin depender de WiFi punto a punto.
-            </CardContent>
-          </Card>
+            </PanelContent>
+          </Panel>
         </div>
       </div>
     </section>

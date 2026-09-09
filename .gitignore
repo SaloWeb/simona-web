@@ -13,3 +13,6 @@ __v0_jsx-dev-runtime.ts
 node_modules
 .next/
 .DS_Store
+
+# Capturas de Playwright hechas por Claude (auditoría visual, no versionar)
+.claude-capturas/

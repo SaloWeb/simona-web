@@ -1,7 +1,7 @@
 import { FileJson, Gauge, SlidersHorizontal } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
+import { Panel, PanelContent } from "@/components/panel"
 import { SectionHeading } from "@/components/section-heading"
 import { AppMockup } from "@/components/app-mockup"
 
@@ -56,8 +56,8 @@ export function ProfilesSection() {
             <ul className="flex flex-col gap-4">
               {highlights.map((item) => (
                 <li key={item.title}>
-                  <Card className="shadow-sm">
-                    <CardContent className="flex items-start gap-4">
+                  <Panel>
+                    <PanelContent className="flex items-start gap-4">
                       <span className="icon-chip flex size-10 shrink-0 items-center justify-center bg-primary/10 text-primary">
                         <item.icon className="size-5" aria-hidden="true" />
                       </span>
@@ -69,8 +69,8 @@ export function ProfilesSection() {
                           {item.description}
                         </p>
                       </div>
-                    </CardContent>
-                  </Card>
+                    </PanelContent>
+                  </Panel>
                 </li>
               ))}
             </ul>

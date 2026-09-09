@@ -2,12 +2,12 @@ import { GraduationCap, MapPin } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+  Panel,
+  PanelContent,
+  PanelDescription,
+  PanelHeader,
+  PanelTitle,
+} from "@/components/panel"
 import { SectionHeading } from "@/components/section-heading"
 
 /**
@@ -62,20 +62,20 @@ export function TeamSection() {
         />
 
         <div className="grid gap-6 lg:grid-cols-[1fr_1.4fr] lg:items-start">
-          <Card className="h-full border-primary/25 bg-primary/[0.04] shadow-sm">
-            <CardHeader>
+          <Panel accent="primary" className="h-full">
+            <PanelHeader>
               <span className="icon-chip flex size-10 items-center justify-center bg-primary/10 text-primary">
                 <GraduationCap className="size-5" aria-hidden="true" />
               </span>
-              <CardTitle className="text-xl">
+              <PanelTitle className="text-xl">
                 Escuela de Educación Técnica N°6 &quot;Chacabuco&quot;
-              </CardTitle>
-              <CardDescription className="leading-relaxed">
+              </PanelTitle>
+              <PanelDescription className="leading-relaxed">
                 Orientación Informática · 7mo año, 3ra división · Ciclo
                 lectivo 2026
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
+              </PanelDescription>
+            </PanelHeader>
+            <PanelContent>
               <Badge
                 variant="outline"
                 className="w-fit gap-1.5 border-earth/30 bg-card text-earth"
@@ -83,13 +83,13 @@ export function TeamSection() {
                 <MapPin className="size-3.5" aria-hidden="true" />
                 Morón, Buenos Aires
               </Badge>
-            </CardContent>
-          </Card>
+            </PanelContent>
+          </Panel>
 
           <div className="grid gap-4 sm:grid-cols-2">
             {team.map((member) => (
-              <Card key={member.name} className="h-full shadow-sm">
-                <CardContent className="flex items-center gap-4">
+              <Panel key={member.name} className="h-full">
+                <PanelContent className="flex items-center gap-4">
                   <span
                     className={`icon-chip flex size-11 shrink-0 items-center justify-center font-display text-sm font-semibold ${toneClasses[member.tone]}`}
                     aria-hidden="true"
@@ -99,8 +99,8 @@ export function TeamSection() {
                   <span className="font-medium text-foreground">
                     {member.name}
                   </span>
-                </CardContent>
-              </Card>
+                </PanelContent>
+              </Panel>
             ))}
           </div>
         </div>

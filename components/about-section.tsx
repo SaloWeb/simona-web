@@ -3,12 +3,12 @@ import { Compass, MapPin, Sprout, Target } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+  Panel,
+  PanelContent,
+  PanelDescription,
+  PanelHeader,
+  PanelTitle,
+} from "@/components/panel"
 import { SectionHeading } from "@/components/section-heading"
 
 const pillars = [
@@ -64,8 +64,16 @@ export function AboutSection() {
           description="Vimos de cerca un problema que se repite en las quintas y campos del Oeste del GBA: monitorear los cultivos a mano lleva tiempo y margen de error. De ahí nació SIMONA."
         />
 
-        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-          <Card className="overflow-hidden border-earth/25 bg-earth/[0.06] shadow-sm">
+        {/*
+          Antes lg:items-start: el grid usaba align-items:start, así que
+          la columna de pilares (más corta) no estiraba para igualar la
+          columna "Historia" (imagen + texto + stats), dejando aire muerto
+          al lado. Sin ese override, el grid usa el stretch por defecto y
+          la columna de pilares ocupa todo el alto disponible (ver plan de
+          mejoras visuales, P3).
+        */}
+        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+          <Panel accent="earth" className="overflow-hidden">
             <div className="relative">
               <Image
                 src="/images/historia-huerta.jpg"
@@ -82,7 +90,7 @@ export function AboutSection() {
                   sistema de diseño general. */}
               <div className="absolute inset-x-0 bottom-0 h-[2px] bg-trace/60" />
             </div>
-            <CardHeader>
+            <PanelHeader>
               <Badge
                 variant="outline"
                 className="w-fit gap-1.5 border-earth/30 bg-card text-earth"
@@ -90,14 +98,14 @@ export function AboutSection() {
                 <MapPin className="size-3.5" aria-hidden="true" />
                 Nacido en el Oeste del GBA
               </Badge>
-              <CardTitle className="text-2xl">Historia</CardTitle>
-              <CardDescription className="leading-relaxed">
+              <PanelTitle className="text-2xl">Historia</PanelTitle>
+              <PanelDescription className="leading-relaxed">
                 El vínculo con el trabajo rural, que conocimos de cerca junto
                 a productores de Morón y el Oeste del GBA, nos permitió
                 entender los desafíos cotidianos de quien cultiva la tierra.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="flex flex-col gap-4 text-sm leading-relaxed text-muted-foreground">
+              </PanelDescription>
+            </PanelHeader>
+            <PanelContent className="flex flex-col gap-4 text-sm leading-relaxed text-muted-foreground">
               <p>
                 Encontramos en la tecnología una oportunidad para optimizar
                 recursos y facilitar la toma de decisiones: esa es la idea
@@ -115,30 +123,30 @@ export function AboutSection() {
                   </div>
                 ))}
               </dl>
-            </CardContent>
-          </Card>
+            </PanelContent>
+          </Panel>
 
           <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
             {pillars.map((pillar) => (
-              <Card key={pillar.title} className="h-full shadow-sm">
-                <CardHeader>
+              <Panel key={pillar.title} className="h-full">
+                <PanelHeader>
                   <span
                     className={`icon-chip flex size-10 items-center justify-center ${toneClasses[pillar.tone]}`}
                   >
                     <pillar.icon className="size-5" aria-hidden="true" />
                   </span>
-                  <CardTitle>{pillar.title}</CardTitle>
+                  <PanelTitle>{pillar.title}</PanelTitle>
                   {/* Micro-divisor trace: repite el gesto del guión bajo el
                       eyebrow de SectionHeading a escala de card individual. */}
                   <span
                     aria-hidden="true"
                     className="mt-1 mb-1.5 block h-px w-6 bg-trace/50"
                   />
-                  <CardDescription className="leading-relaxed">
+                  <PanelDescription className="leading-relaxed">
                     {pillar.description}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
+                  </PanelDescription>
+                </PanelHeader>
+              </Panel>
             ))}
           </div>
         </div>

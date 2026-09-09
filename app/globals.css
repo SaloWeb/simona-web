@@ -239,6 +239,15 @@
   body {
     @apply bg-background text-foreground;
   }
+  /*
+   * Compensa el nav sticky (h-16 = 64px, ver site-header.tsx) al
+   * navegar por anchors: sin esto, el scroll deja el título de la
+   * sección justo tapado por el nav. Cubre las 10 secciones con id de
+   * una sola vez (ver plan de mejoras visuales, P1).
+   */
+  html {
+    scroll-padding-top: 5rem;
+  }
 }
 
 /*
@@ -290,6 +299,23 @@
     calc(100% - 14px) 100%,
     0 100%,
     0 14px
+  );
+}
+
+/*
+ * Corte de esquina liviano para el componente Panel (components/panel.tsx),
+ * que reemplaza al Card genérico de shadcn en el resto del sitio. Mismo
+ * lenguaje que .icon-chip/.trace-panel (esquina de módulo/PCB) pero con un
+ * corte más grande, pensado para tarjetas de contenido y no para íconos
+ * chicos ni para el panel del Nodo (que ya usa .trace-panel, 4 esquinas).
+ */
+.panel-corner {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 16px),
+    calc(100% - 16px) 100%,
+    0 100%
   );
 }
 

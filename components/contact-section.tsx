@@ -115,7 +115,18 @@ export function ContactSection() {
                       <a.icon className="size-5" aria-hidden="true" />
                     </span>
                     <div className="flex flex-col gap-1">
-                      <h3 className="font-medium text-foreground">{a.title}</h3>
+                      {/*
+                        Antes text-foreground (gris oscuro pensado para
+                        fondo claro): quedaba oscuro sobre el fondo oscuro
+                        de esta section. Sacar la clase no alcanzaba: el
+                        Card de shadcn ya fija su propio text-card-foreground
+                        (también oscuro) en el wrapper, así que el h3 lo
+                        heredaba de ahí en vez del text-background de la
+                        section. Color explícito claro en el h3 mismo, en
+                        línea con el acento earth de esta card (icono +
+                        borde) (ver plan de mejoras visuales, P2).
+                      */}
+                      <h3 className="font-medium text-earth-foreground">{a.title}</h3>
                       <p className="text-sm leading-relaxed text-muted-foreground">
                         {a.description}
                       </p>

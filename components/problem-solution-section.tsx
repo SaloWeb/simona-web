@@ -1,12 +1,7 @@
 import Image from "next/image"
 import { CircleAlert, Sparkles } from "lucide-react"
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Panel, PanelContent, PanelHeader, PanelTitle } from "@/components/panel"
 import { SectionHeading } from "@/components/section-heading"
 
 export function ProblemSolutionSection() {
@@ -33,7 +28,7 @@ export function ProblemSolutionSection() {
           secciones seguidas con la misma composición imagen-izquierda.
         */}
         <div className="grid gap-6 lg:grid-cols-2">
-          <Card className="border-earth/25 bg-earth/[0.04] shadow-sm lg:order-2">
+          <Panel accent="earth" className="lg:order-2">
             <Image
               src="/images/problema-manual.jpg"
               alt="Trabajador realizando tareas manuales en un invernadero, sin sensores ni automatización"
@@ -43,35 +38,35 @@ export function ProblemSolutionSection() {
               loading="lazy"
               className="aspect-[16/10] w-full object-cover"
             />
-            <CardHeader>
+            <PanelHeader>
               <span className="icon-chip flex size-10 items-center justify-center bg-earth/10 text-earth">
                 <CircleAlert className="size-5" aria-hidden="true" />
               </span>
-              <CardTitle className="text-xl">El desafío</CardTitle>
-            </CardHeader>
-            <CardContent className="text-sm leading-relaxed text-muted-foreground">
+              <PanelTitle className="text-xl">El desafío</PanelTitle>
+            </PanelHeader>
+            <PanelContent className="text-sm leading-relaxed text-muted-foreground">
               La producción agrícola enfrenta desafíos relacionados con el
               monitoreo constante, la falta de automatización y de
               información en tiempo real, dificultando la toma de decisiones
               precisas y la optimización de los recursos.
-            </CardContent>
-          </Card>
+            </PanelContent>
+          </Panel>
 
-          <Card className="border-primary/25 bg-primary/[0.04] shadow-sm lg:order-1">
-            <CardHeader>
+          <Panel accent="primary" className="justify-center lg:order-1">
+            <PanelHeader>
               <span className="icon-chip flex size-10 items-center justify-center bg-primary/10 text-primary">
                 <Sparkles className="size-5" aria-hidden="true" />
               </span>
-              <CardTitle className="text-xl">Nuestra solución</CardTitle>
-            </CardHeader>
-            <CardContent className="text-sm leading-relaxed text-muted-foreground">
+              <PanelTitle className="text-xl">Nuestra solución</PanelTitle>
+            </PanelHeader>
+            <PanelContent className="text-sm leading-relaxed text-muted-foreground">
               Nuestra solución es SIMONA, el sistema que se encarga del
               monitoreo de los cultivos en tiempo real a través de una
               aplicación conectada en la que se registran las necesidades de
               cada cultivo y se muestran recomendaciones concretas para el
               trabajador a cargo de ellos.
-            </CardContent>
-          </Card>
+            </PanelContent>
+          </Panel>
         </div>
       </div>
     </section>

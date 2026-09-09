@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import { Card, CardContent } from "@/components/ui/card"
+import { Panel, PanelContent } from "@/components/panel"
 import { SectionHeading } from "@/components/section-heading"
 
 // Mismo contenido que el JSON-LD FAQPage en app/layout.tsx. Si cambiás una
@@ -56,8 +56,8 @@ export function FaqSection() {
           className="mx-auto"
         />
 
-        <Card>
-          <CardContent>
+        <Panel>
+          <PanelContent>
             <Accordion defaultValue={["faq-1"]}>
               {faqs.map((faq) => (
                 <AccordionItem key={faq.value} value={faq.value}>
@@ -68,8 +68,8 @@ export function FaqSection() {
                 </AccordionItem>
               ))}
             </Accordion>
-          </CardContent>
-        </Card>
+          </PanelContent>
+        </Panel>
       </div>
     </section>
   )
